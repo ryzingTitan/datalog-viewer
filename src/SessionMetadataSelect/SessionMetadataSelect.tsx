@@ -2,15 +2,11 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@m
 import { Box } from '@mui/system';
 import React, { ReactElement, useEffect } from 'react';
 import SessionMetadata from './SessionMetadata';
+import SessionMetadataSelectProps from './SessionMetadataSelectProps';
 import SessionMetadataService from './SessionMetadataService';
 
-export default function SessionMetadataSelect(): ReactElement {
+export default function SessionMetadataSelect(sessionMetadataSelectProps: SessionMetadataSelectProps): ReactElement {
     const [sessionMetadataList, setSessionMetadataList] = React.useState(Array<SessionMetadata>());
-    const [selectedSessionId, setSelectedSessionId] = React.useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setSelectedSessionId(event.target.value);
-    };
 
     useEffect(() => {
         const getAllSessionMetadata = async () => {
@@ -24,6 +20,9 @@ export default function SessionMetadataSelect(): ReactElement {
         }
     })
 
+    const handleChange = (event: SelectChangeEvent) => {
+        sessionMetadataSelectProps.setSessionId(event.target.value)
+      };
 
     return (
         <Box margin={2} textAlign="center">
@@ -32,7 +31,7 @@ export default function SessionMetadataSelect(): ReactElement {
                 <Select
                     labelId="session-metadata-select-label"
                     id="session-metadata-select"
-                    value={selectedSessionId}
+                    value={sessionMetadataSelectProps.selectedSessionId}
                     label="Session"
                     onChange={handleChange}
                     autoWidth

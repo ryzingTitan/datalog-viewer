@@ -4,7 +4,7 @@ import SessionMetadataSelect from './SessionMetadataSelect';
 
 describe("renders the session metadata select element correctly", () => {
   test('when no values exist', () => {
-    render(<SessionMetadataSelect />);
+    // render(<SessionMetadataSelect />);
 
     const sessionMetadataSelectLabel = screen.getByLabelText("Session");
     expect(sessionMetadataSelectLabel).toBeInTheDocument();
@@ -13,7 +13,7 @@ describe("renders the session metadata select element correctly", () => {
   });
 
   test('when multiple values exist', () => {
-    render(<SessionMetadataSelect />);
+    // render(<SessionMetadataSelect />);
     const sessionMetadataSelectLabel = screen.getByLabelText("Session");
     expect(sessionMetadataSelectLabel).toBeInTheDocument();
   });
