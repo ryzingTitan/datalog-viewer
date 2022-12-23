@@ -3,7 +3,7 @@ import SessionMetadata from "./SessionMetadata";
 
 export default class SessionMetadataService {
     instance = axios.create({
-        baseURL: "http://localhost:8080/api/datalogs"
+        baseURL: "http://localhost:8080/api"
     });
 
     public getAllSessionMetadata(): Promise<AxiosResponse<Array<SessionMetadata>>> {

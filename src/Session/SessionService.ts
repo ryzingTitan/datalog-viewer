@@ -3,10 +3,10 @@ import Datalog from "./Datalog";
 
 export default class SessionService {
     instance = axios.create({
-        baseURL: "http://localhost:8080/api/datalogs"
+        baseURL: "http://localhost:8080/api"
     });
 
-    public getSessionById(sessionId: string): Promise<AxiosResponse<Array<Datalog>>> {
-        return this.instance.get<Array<Datalog>>("/sessions/".concat(sessionId))
+    public getDatalogsBySessionId(sessionId: string): Promise<AxiosResponse<Array<Datalog>>> {
+        return this.instance.get<Array<Datalog>>("/sessions/".concat(sessionId).concat("/datalogs"))
     }
 }

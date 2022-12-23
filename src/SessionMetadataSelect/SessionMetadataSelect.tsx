@@ -7,10 +7,10 @@ import SessionMetadataService from './SessionMetadataService';
 
 export default function SessionMetadataSelect(sessionMetadataSelectProps: SessionMetadataSelectProps): ReactElement {
     const [sessionMetadataList, setSessionMetadataList] = React.useState(Array<SessionMetadata>());
+    const sessionMetadataService = new SessionMetadataService()
 
     useEffect(() => {
         const getAllSessionMetadata = async () => {
-            const sessionMetadataService = new SessionMetadataService()
             const response = await sessionMetadataService.getAllSessionMetadata()
             setSessionMetadataList(response.data)
         }
@@ -27,12 +27,12 @@ export default function SessionMetadataSelect(sessionMetadataSelectProps: Sessio
     return (
         <Box margin={2} textAlign="center">
             <FormControl sx={{ minWidth: 200 }}>
-                <InputLabel id="session-metadata-select-label">Session</InputLabel>
+                <InputLabel id="session-metadata-select-label">Session Id</InputLabel>
                 <Select
                     labelId="session-metadata-select-label"
                     id="session-metadata-select"
                     value={sessionMetadataSelectProps.selectedSessionId}
-                    label="Session"
+                    label="SessionId"
                     onChange={handleChange}
                     autoWidth
                 >
