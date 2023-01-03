@@ -9,7 +9,7 @@ import { Box } from "@mui/system";
 import React, { ReactElement, useEffect } from "react";
 import SessionMetadata from "./SessionMetadata";
 import SessionMetadataSelectProps from "./SessionMetadataSelectProps";
-import SessionMetadataService from "./SessionMetadataService";
+import { compareAsc, format, parseISO } from "date-fns";
 
 export default function SessionMetadataSelect(
   sessionMetadataSelectProps: SessionMetadataSelectProps
@@ -17,11 +17,11 @@ export default function SessionMetadataSelect(
   const [sessionMetadataList, setSessionMetadataList] = React.useState(
     Array<SessionMetadata>()
   );
-  const sessionMetadataService = new SessionMetadataService();
 
   useEffect(() => {
     const getAllSessionMetadata = async () => {
-      const response = await sessionMetadataService.getAllSessionMetadata();
+      const response =
+        await sessionMetadataSelectProps.sessionMetadataService.getAllSessionMetadata();
       setSessionMetadataList(response.data);
     };
 
@@ -34,28 +34,54 @@ export default function SessionMetadataSelect(
     sessionMetadataSelectProps.setSessionId(event.target.value);
   };
 
+  const formatDateTime = (dateTime?: string): string => {
+    if (dateTime === undefined) return "";
+
+    const date = parseISO(dateTime);
+    return format(date, "MM-dd-yyyy h:mm a");
+  };
+
+  const sortByStartDateTimeAsc = (
+    firstSessionMetadata: SessionMetadata,
+    secondSessionMetadata: SessionMetadata
+  ): number => {
+    if (
+      firstSessionMetadata.startTime === undefined ||
+      secondSessionMetadata.startTime === undefined
+    )
+      return 0;
+
+    const firstDate = parseISO(firstSessionMetadata.startTime);
+    const secondDate = parseISO(secondSessionMetadata.startTime);
+
+    return compareAsc(firstDate, secondDate);
+  };
+
   return (
     <Box margin={2} textAlign="center">
       <FormControl sx={{ minWidth: 200 }}>
-        <InputLabel id="session-metadata-select-label">Session Id</InputLabel>
+        <InputLabel id="session-metadata-select-label">Session List</InputLabel>
         <Select
           labelId="session-metadata-select-label"
           id="session-metadata-select"
           value={sessionMetadataSelectProps.selectedSessionId}
-          label="SessionId"
+          label="Session List"
           onChange={handleChange}
           autoWidth
         >
-          {sessionMetadataList.map((sessionMetadata: SessionMetadata) => {
-            return (
-              <MenuItem
-                key={sessionMetadata.sessionId}
-                value={sessionMetadata.sessionId}
-              >
-                {sessionMetadata.sessionId}
-              </MenuItem>
-            );
-          })}
+          {sessionMetadataList
+            .sort(sortByStartDateTimeAsc)
+            .map((sessionMetadata: SessionMetadata) => {
+              return (
+                <MenuItem
+                  key={sessionMetadata.sessionId}
+                  value={sessionMetadata.sessionId}
+                >
+                  {formatDateTime(sessionMetadata.startTime)} -{" "}
+                  {formatDateTime(sessionMetadata.endTime)}
+                </MenuItem>
+              );
+            })}
         </Select>
       </FormControl>
     </Box>
