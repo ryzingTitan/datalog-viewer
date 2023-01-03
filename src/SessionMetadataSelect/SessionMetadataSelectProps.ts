@@ -1,4 +1,4 @@
-export default interface SessionMetadataSelectProps{
-    selectedSessionId: string,
-    setSessionId: Function
+export default interface SessionMetadataSelectProps {
+  selectedSessionId: string;
+  setSessionId: Function;
 }
