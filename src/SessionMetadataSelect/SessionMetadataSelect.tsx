@@ -60,7 +60,12 @@ export default function SessionMetadataSelect(
   return (
     <Box margin={2} textAlign="center">
       <FormControl sx={{ minWidth: 200 }}>
-        <InputLabel id="session-metadata-select-label">Session List</InputLabel>
+        <InputLabel
+          data-cy="sessionMetadataSelectLabel"
+          id="session-metadata-select-label"
+        >
+          Session List
+        </InputLabel>
         <Select
           labelId="session-metadata-select-label"
           id="session-metadata-select"
@@ -68,6 +73,7 @@ export default function SessionMetadataSelect(
           label="Session List"
           onChange={handleChange}
           autoWidth
+          data-cy="sessionMetadataSelect"
         >
           {sessionMetadataList
             .sort(sortByStartDateTimeAsc)
