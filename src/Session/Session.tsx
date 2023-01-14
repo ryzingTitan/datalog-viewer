@@ -8,14 +8,14 @@ import SessionService from "./SessionService";
 
 export default function Session(): ReactElement {
   const [selectedSessionId, setSelectedSessionId] = React.useState("");
-  // const [datalogList, setDatalogList] = React.useState(Array<Datalog>())
+  const [datalogList, setDatalogList] = React.useState(Array<Datalog>());
   const sessionMetadataService = new SessionMetadataService();
 
   const setSessionId = (newSessionId: string) => {
     const getSessionById = async (sessionId: string) => {
       const sessionService = new SessionService();
       const response = await sessionService.getDatalogsBySessionId(sessionId);
-      // setDatalogList(response.data)
+      setDatalogList(response.data);
     };
 
     if (newSessionId !== selectedSessionId) {
@@ -32,7 +32,10 @@ export default function Session(): ReactElement {
         setSessionId={setSessionId}
         sessionMetadataService={sessionMetadataService}
       />
-      {/* <IntakeAirTemperatureGraph datalogs={datalogList} sessionId={selectedSessionId} /> */}
+      <IntakeAirTemperatureGraph
+        datalogs={datalogList}
+        sessionId={selectedSessionId}
+      />
     </div>
   );
 }
