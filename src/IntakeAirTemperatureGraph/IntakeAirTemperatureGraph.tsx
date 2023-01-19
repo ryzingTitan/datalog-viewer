@@ -31,6 +31,71 @@ import Datapoint from "./Datapoint";
 import getUnixTime from "date-fns/getUnixTime";
 import parseISO from "date-fns/parseISO";
 import { enUS } from "date-fns/locale";
+import ReactECharts from "echarts-for-react";
+import * as echarts from "echarts/core";
+// Import charts, all with Chart suffix
+import {
+  // LineChart,
+  BarChart,
+  // PieChart,
+  // ScatterChart,
+  // RadarChart,
+  // MapChart,
+  // TreeChart,
+  // TreemapChart,
+  // GraphChart,
+  // GaugeChart,
+  // FunnelChart,
+  // ParallelChart,
+  // SankeyChart,
+  // BoxplotChart,
+  // CandlestickChart,
+  // EffectScatterChart,
+  LinesChart,
+  // HeatmapChart,
+  // PictorialBarChart,
+  // ThemeRiverChart,
+  // SunburstChart,
+  // CustomChart,
+} from "echarts/charts";
+// import components, all suffixed with Component
+import {
+  // GridSimpleComponent,
+  GridComponent,
+  // PolarComponent,
+  // RadarComponent,
+  // GeoComponent,
+  // SingleAxisComponent,
+  // ParallelComponent,
+  // CalendarComponent,
+  // GraphicComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  // AxisPointerComponent,
+  // BrushComponent,
+  TitleComponent,
+  // TimelineComponent,
+  // MarkPointComponent,
+  // MarkLineComponent,
+  // MarkAreaComponent,
+  // LegendComponent,
+  // LegendScrollComponent,
+  // LegendPlainComponent,
+  // DataZoomComponent,
+  // DataZoomInsideComponent,
+  // DataZoomSliderComponent,
+  // VisualMapComponent,
+  // VisualMapContinuousComponent,
+  // VisualMapPiecewiseComponent,
+  // AriaComponent,
+  // TransformComponent,
+  DatasetComponent,
+} from "echarts/components";
+// Import renderer, note that introducing the CanvasRenderer or SVGRenderer is a required step
+import {
+  CanvasRenderer,
+  // SVGRenderer,
+} from "echarts/renderers";
 
 export default function IntakeAirTemperatureGraph(
   intakeAirTemperatureProps: IntakeAirTemperatureProps
@@ -49,6 +114,16 @@ export default function IntakeAirTemperatureGraph(
     TimeScale,
     TimeSeriesScale
   );
+
+  echarts.use([
+    BarChart,
+    TitleComponent,
+    GridComponent,
+    CanvasRenderer,
+    LinesChart,
+    ToolboxComponent,
+    TooltipComponent,
+  ]);
 
   const options = {} as ChartOptions<"line">;
   options.responsive = true;
@@ -100,26 +175,31 @@ export default function IntakeAirTemperatureGraph(
 
   const labels = Array<string>();
   // const dataPoints = Array<Point>();
-  const dataPoints = Array<number>();
+  const intakeTemperatureDataPoints = Array<number>();
+  const boostPressureDataPoints = Array<number>();
   intakeAirTemperatureProps.datalogs.forEach((datalog) => {
     if (
       datalog.timestamp !== undefined &&
       datalog.intakeAirTemperature !== undefined &&
       datalog.intakeAirTemperature !== null &&
-      datalog.intakeAirTemperature > 150
+      datalog.boostPressure !== undefined
+      // &&
+      // datalog.intakeAirTemperature > 150
     ) {
       labels.push(datalog.timestamp);
       const unixTime = getUnixTime(parseISO(datalog.timestamp));
       // labels.push(unixTime)
 
       // dataPoints.push({ y: datalog.intakeAirTemperature, x : unixTime });
-      dataPoints.push(datalog.intakeAirTemperature);
+      // intakeTemperatureDataPoints.push(datalog.intakeAirTemperature / 10);
+      intakeTemperatureDataPoints.push(datalog.intakeAirTemperature);
+      boostPressureDataPoints.push(datalog.boostPressure);
     }
   });
 
   let dataset = {} as ChartDataset<"line">;
   dataset.label = intakeAirTemperatureProps.sessionId;
-  dataset.data = dataPoints;
+  dataset.data = intakeTemperatureDataPoints;
   dataset.yAxisID = "y";
   dataset.xAxisID = "x";
   dataset.indexAxis = "x";
@@ -139,8 +219,39 @@ export default function IntakeAirTemperatureGraph(
 
   // console.log(data.datasets)
 
+  const option = {
+    title: {
+      text: "Test",
+    },
+    xAxis: {
+      data: labels,
+    },
+    yAxis: {
+      type: "value",
+    },
+    series: [
+      {
+        data: intakeTemperatureDataPoints,
+        type: "bar",
+      },
+      {
+        data: boostPressureDataPoints,
+        type: "line",
+      },
+    ],
+    toolbox: {
+      feature: {
+        saveAsImage: {},
+      },
+    },
+    tooltip: {
+      trigger: "axis",
+    },
+  };
+
   return (
-    <Line options={options} data={data}></Line>
+    <ReactECharts option={option}></ReactECharts>
+    // <Line options={options} data={data}></Line>
     // <Bar options={options} data={data} />
   );
 }
