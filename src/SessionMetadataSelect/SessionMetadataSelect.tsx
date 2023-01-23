@@ -10,33 +10,30 @@ import React, { ReactElement, useEffect } from "react";
 import SessionMetadata from "./SessionMetadata";
 import SessionMetadataSelectProps from "./SessionMetadataSelectProps";
 import { compareAsc, format, parseISO } from "date-fns";
+import SessionMetadataService from "./SessionMetadataService";
 
 export default function SessionMetadataSelect(
   sessionMetadataSelectProps: SessionMetadataSelectProps
 ): ReactElement {
+  const sessionMetadataService = new SessionMetadataService();
   const [sessionMetadataList, setSessionMetadataList] = React.useState(
     Array<SessionMetadata>()
   );
 
   useEffect(() => {
     const getAllSessionMetadata = async () => {
-      const response =
-        await sessionMetadataSelectProps.sessionMetadataService.getAllSessionMetadata();
+      const response = await sessionMetadataService.getAllSessionMetadata();
       setSessionMetadataList(response.data);
     };
 
-    if (sessionMetadataList.length === 0) {
-      getAllSessionMetadata();
-    }
-  });
+    getAllSessionMetadata();
+  }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
     sessionMetadataSelectProps.setSessionId(event.target.value);
   };
 
-  const formatDateTime = (dateTime?: string): string => {
-    if (dateTime === undefined) return "";
-
+  const formatDateTime = (dateTime: string): string => {
     const date = parseISO(dateTime);
     return format(date, "MM-dd-yyyy h:mm a");
   };
