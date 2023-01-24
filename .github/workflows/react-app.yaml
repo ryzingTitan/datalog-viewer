@@ -1,0 +1,20 @@
+name: React application
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: "npm"
+      - run: npm ci
+      - run: npm audit --omit=dev
+      - run: npm run format:check
+      - run: npm run build
+      - run: npm test -- --coverage .
+      - run: npm run cypress:run
