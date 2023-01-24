@@ -23,4 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # Cypress Videos
-/Cypress/Videos/**
+/cypress/videos/**
+/cypress/screenshots/**

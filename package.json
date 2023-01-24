@@ -29,13 +29,20 @@
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --component"
+    "cypress:run": "cypress run --component",
+    "lint:check": "eslint .",
+    "format:write": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest",
       "prettier"
+    ],
+    "ignorePatterns": [
+      "build/**",
+      "coverage/**"
     ]
   },
   "browserslist": {
@@ -53,7 +60,25 @@
   "jest": {
     "transformIgnorePatterns": [
       "node_modules/(?!axios/.*)"
-    ]
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts?(x)",
+      "!src/**/*.test.ts?(x)",
+      "!src/index.tsx",
+      "!src/reportWebVitals.ts",
+      "!src/react-app-env.d.ts"
+    ],
+    "testMatch": [
+      "**/?(*.)+(test).ts?(x)"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 10,
+        "lines": 5,
+        "statements": 5
+      }
+    }
   },
   "devDependencies": {
     "@types/jest": "29.2.4",
