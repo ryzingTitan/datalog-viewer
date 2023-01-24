@@ -15,13 +15,13 @@ import SessionMetadataService from "./SessionMetadataService";
 export default function SessionMetadataSelect(
   sessionMetadataSelectProps: SessionMetadataSelectProps
 ): ReactElement {
-  const sessionMetadataService = new SessionMetadataService();
   const [sessionMetadataList, setSessionMetadataList] = React.useState(
     Array<SessionMetadata>()
   );
 
   useEffect(() => {
     const getAllSessionMetadata = async () => {
+      const sessionMetadataService = new SessionMetadataService();
       const response = await sessionMetadataService.getAllSessionMetadata();
       setSessionMetadataList(response.data);
     };
