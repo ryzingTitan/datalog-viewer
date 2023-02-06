@@ -1,7 +1,6 @@
 import { ReactElement, useState } from "react";
 import SessionDataTable from "../SessionDataTable/SessionDataTable";
 import SessionMetadataSelect from "../SessionMetadataSelect/SessionMetadataSelect";
-import TemperatureGraph from "../TemperatureGraph/TemperatureGraph";
 import Datalog from "./Datalog";
 import SessionService from "./SessionService";
 
@@ -9,7 +8,7 @@ export default function Session(): ReactElement {
   const [selectedSessionId, setSelectedSessionId] = useState("");
   const [datalogList, setDatalogList] = useState(Array<Datalog>());
 
-  const setSessionId = (newSessionId: string) => {
+  function setSessionId(newSessionId: string) {
     const getSessionById = async (sessionId: string) => {
       const sessionService = new SessionService();
       const response = await sessionService.getDatalogsBySessionId(sessionId);
@@ -21,7 +20,7 @@ export default function Session(): ReactElement {
     }
 
     setSelectedSessionId(newSessionId);
-  };
+  }
 
   return (
     <div>
@@ -30,7 +29,6 @@ export default function Session(): ReactElement {
         setSessionId={setSessionId}
       />
       <SessionDataTable datalogs={datalogList} />
-      <TemperatureGraph datalogs={datalogList}></TemperatureGraph>
     </div>
   );
 }

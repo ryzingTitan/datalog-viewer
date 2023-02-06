@@ -19,7 +19,7 @@ export default function SessionMetadataSelect(
     Array<SessionMetadata>()
   );
 
-  useEffect(() => {
+  useEffect(function () {
     const getAllSessionMetadata = async () => {
       const sessionMetadataService = new SessionMetadataService();
       const response = await sessionMetadataService.getAllSessionMetadata();
@@ -38,21 +38,15 @@ export default function SessionMetadataSelect(
     return format(date, "MM-dd-yyyy h:mm a");
   };
 
-  const sortByStartDateTimeAsc = (
+  function sortByStartDateTimeAsc(
     firstSessionMetadata: SessionMetadata,
     secondSessionMetadata: SessionMetadata
-  ): number => {
-    if (
-      firstSessionMetadata.startTime === undefined ||
-      secondSessionMetadata.startTime === undefined
-    )
-      return 0;
-
+  ): number {
     const firstDate = parseISO(firstSessionMetadata.startTime);
     const secondDate = parseISO(secondSessionMetadata.startTime);
 
     return compareAsc(firstDate, secondDate);
-  };
+  }
 
   return (
     <Box margin={2} textAlign="center">

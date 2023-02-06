@@ -6,4 +6,5 @@ export default interface Datalog {
   coolantTemperature: number;
   engineRpm: number;
   speed: number;
+  throttlePosition: number;
 }

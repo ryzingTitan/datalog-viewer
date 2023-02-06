@@ -8,7 +8,6 @@ import Datalog from "../Session/Datalog";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { ReactElement } from "react";
-import { width } from "@mui/system";
 
 export default function SessionDataTable(
   sessionDataTableProps: SessionDataTableProps
