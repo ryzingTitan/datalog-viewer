@@ -70,7 +70,7 @@ export default function SessionDataTable(
   ];
 
   return (
-    <Box style={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 400, width: "100%", paddingLeft: 1, paddingRight: 1 }}>
       <DataGrid
         rows={sessionDataTableProps.datalogs}
         columns={columns}

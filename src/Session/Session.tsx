@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { ReactElement, useState } from "react";
 import SessionDataTable from "../SessionDataTable/SessionDataTable";
 import SessionMetadataSelect from "../SessionMetadataSelect/SessionMetadataSelect";
+import TemperatureGraph from "../TemperatureGraph/TemperatureGraph";
 import Datalog from "./Datalog";
 import SessionService from "./SessionService";
 
@@ -30,6 +31,7 @@ export default function Session(): ReactElement {
         setSessionId={setSessionId}
       />
       <SessionDataTable datalogs={datalogList} />
+      <TemperatureGraph datalogs={datalogList} />
     </Box>
   );
 }
