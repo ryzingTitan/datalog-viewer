@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   DataGrid,
   GridColDef,
@@ -8,10 +7,12 @@ import SessionDataTableProps from "./SessionDataTableProps";
 import Datalog from "../Session/Datalog";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
+import { ReactElement } from "react";
+import { width } from "@mui/system";
 
 export default function SessionDataTable(
   sessionDataTableProps: SessionDataTableProps
-): React.ReactElement {
+): ReactElement {
   const columns: GridColDef[] = [
     {
       field: "timestamp",
@@ -36,28 +37,35 @@ export default function SessionDataTable(
       headerName: "Boost Pressure (PSI)",
       headerAlign: "center",
       align: "center",
-      width: 175,
+      width: 150,
     },
     {
       field: "coolantTemperature",
       headerName: "Coolant Temperature",
       headerAlign: "center",
       align: "center",
-      width: 175,
+      width: 150,
     },
     {
       field: "engineRpm",
       headerName: "Engine RPM",
       headerAlign: "center",
       align: "center",
-      width: 175,
+      width: 125,
     },
     {
       field: "speed",
       headerName: "Speed (MPH)",
       headerAlign: "center",
       align: "center",
-      width: 175,
+      width: 125,
+    },
+    {
+      field: "throttlePosition",
+      headerName: "Throttle Position",
+      headerAlign: "center",
+      align: "center",
+      width: 125,
     },
   ];
 

@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import SessionMetadata from "./SessionMetadata";
 import SessionMetadataSelectProps from "./SessionMetadataSelectProps";
 import { compareAsc, format, parseISO } from "date-fns";
@@ -15,7 +15,7 @@ import SessionMetadataService from "./SessionMetadataService";
 export default function SessionMetadataSelect(
   sessionMetadataSelectProps: SessionMetadataSelectProps
 ): ReactElement {
-  const [sessionMetadataList, setSessionMetadataList] = React.useState(
+  const [sessionMetadataList, setSessionMetadataList] = useState(
     Array<SessionMetadata>()
   );
 
