@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { ReactElement, useState } from "react";
 import SessionDataTable from "../SessionDataTable/SessionDataTable";
 import SessionMetadataSelect from "../SessionMetadataSelect/SessionMetadataSelect";
@@ -23,12 +24,12 @@ export default function Session(): ReactElement {
   }
 
   return (
-    <div>
+    <Box>
       <SessionMetadataSelect
         selectedSessionId={selectedSessionId}
         setSessionId={setSessionId}
       />
       <SessionDataTable datalogs={datalogList} />
-    </div>
+    </Box>
   );
 }

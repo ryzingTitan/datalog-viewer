@@ -1,4 +1,4 @@
-FROM node:gallium-alpine as build
+FROM node:gallium-alpine AS build
 
 WORKDIR /app
 COPY package*.json ./
