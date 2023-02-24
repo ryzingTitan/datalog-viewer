@@ -3,6 +3,7 @@ import { ReactElement, useState } from "react";
 import BoostPressureGraph from "../BoostPressureGraph/BoostPressureGraph";
 import SessionDataTable from "../SessionDataTable/SessionDataTable";
 import SessionMetadataSelect from "../SessionMetadataSelect/SessionMetadataSelect";
+import SpeedGraph from "../SpeedGraph/SpeedGraph";
 import TemperatureGraph from "../TemperatureGraph/TemperatureGraph";
 import Datalog from "./Datalog";
 import SessionService from "./SessionService";
@@ -34,6 +35,7 @@ export default function Session(): ReactElement {
       <SessionDataTable datalogs={datalogList} />
       <TemperatureGraph datalogs={datalogList} />
       <BoostPressureGraph datalogs={datalogList} />
+      <SpeedGraph datalogs={datalogList} />
     </Box>
   );
 }
