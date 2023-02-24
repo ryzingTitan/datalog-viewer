@@ -13,7 +13,9 @@ import GraphProps from "../Session/GraphProps";
 import { Box } from "@mui/system";
 import { format, parseISO } from "date-fns";
 
-export default function TemperatureGraph(graphProps: GraphProps): ReactElement {
+export default function BoostPressureGraph(
+  graphProps: GraphProps
+): ReactElement {
   echarts.use([
     TitleComponent,
     GridComponent,
@@ -24,18 +26,16 @@ export default function TemperatureGraph(graphProps: GraphProps): ReactElement {
   ]);
 
   const labels = Array<string>();
-  const intakeTemperatureDataPoints = Array<number>();
-  const coolantTemperatureDataPoints = Array<number>();
+  const boostPressureDataPoints = Array<number>();
   graphProps.datalogs.forEach((datalog) => {
     labels.push(format(parseISO(datalog.timestamp), "h:mm:ss a"));
-    intakeTemperatureDataPoints.push(datalog.intakeAirTemperature);
-    coolantTemperatureDataPoints.push(datalog.coolantTemperature);
+    boostPressureDataPoints.push(datalog.boostPressure);
   });
 
   const option = {
     animationDuration: 10000,
     title: {
-      text: "Temperatures",
+      text: "Boost Pressure",
       left: "center",
     },
     xAxis: {
@@ -43,24 +43,19 @@ export default function TemperatureGraph(graphProps: GraphProps): ReactElement {
       name: "Timestamp",
     },
     yAxis: {
-      name: "\u2109",
+      name: "PSI",
       min: "dataMin",
     },
     series: [
       {
-        data: intakeTemperatureDataPoints,
+        data: boostPressureDataPoints,
         type: "line",
-        name: "Intake Air Temperature",
-      },
-      {
-        data: coolantTemperatureDataPoints,
-        type: "line",
-        name: "Coolant Temperature",
+        name: "Boost Pressure",
       },
     ],
     tooltip: {
       trigger: "axis",
-      valueFormatter: (value: string) => value + " \u2109",
+      valueFormatter: (value: string) => value + " PSI",
     },
   };
 
