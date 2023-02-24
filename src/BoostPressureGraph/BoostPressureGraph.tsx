@@ -41,10 +41,14 @@ export default function BoostPressureGraph(
     xAxis: {
       data: labels,
       name: "Timestamp",
+      nameLocation: "center",
+      nameGap: 30,
     },
     yAxis: {
-      name: "PSI",
       min: "dataMin",
+      axisLabel: {
+        formatter: "{value} PSI",
+      },
     },
     series: [
       {

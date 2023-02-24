@@ -41,14 +41,21 @@ export default function ThrottleGraph(graphProps: GraphProps): ReactElement {
     xAxis: {
       data: labels,
       name: "Timestamp",
+      nameLocation: "center",
+      nameGap: 30,
     },
     yAxis: [
       {
-        name: "RPM",
         min: "dataMin",
+        axisLabel: {
+          formatter: "{value} RPM",
+        },
       },
       {
-        name: "Throttle Position %",
+        name: "Throttle Position",
+        axisLabel: {
+          formatter: "{value} %",
+        },
       },
     ],
     series: [

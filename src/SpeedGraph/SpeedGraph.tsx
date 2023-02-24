@@ -39,10 +39,14 @@ export default function SpeedGraph(graphProps: GraphProps): ReactElement {
     xAxis: {
       data: labels,
       name: "Timestamp",
+      nameLocation: "center",
+      nameGap: 30,
     },
     yAxis: {
-      name: "MPH",
       min: "dataMin",
+      axisLabel: {
+        formatter: "{value} MPH",
+      },
     },
     series: [
       {

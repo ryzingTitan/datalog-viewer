@@ -41,10 +41,14 @@ export default function TemperatureGraph(graphProps: GraphProps): ReactElement {
     xAxis: {
       data: labels,
       name: "Timestamp",
+      nameLocation: "center",
+      nameGap: 30,
     },
     yAxis: {
-      name: "\u2109",
       min: "dataMin",
+      axisLabel: {
+        formatter: "{value} \u2109",
+      },
     },
     series: [
       {
@@ -60,7 +64,7 @@ export default function TemperatureGraph(graphProps: GraphProps): ReactElement {
     ],
     tooltip: {
       trigger: "axis",
-      valueFormatter: (value: string) => value + " \u2109",
+      valueFormatter: (value: string) => `${value} \u2109`,
     },
   };
 
