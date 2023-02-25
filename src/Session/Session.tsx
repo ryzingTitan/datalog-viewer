@@ -6,6 +6,7 @@ import SessionMetadataSelect from "../SessionMetadataSelect/SessionMetadataSelec
 import SpeedGraph from "../SpeedGraph/SpeedGraph";
 import TemperatureGraph from "../TemperatureGraph/TemperatureGraph";
 import ThrottleGraph from "../ThrottleGraph/ThrottleGraph";
+import TrackMap from "../TrackMap/TrackMap";
 import Datalog from "./Datalog";
 import SessionService from "./SessionService";
 
@@ -38,6 +39,7 @@ export default function Session(): ReactElement {
       <BoostPressureGraph datalogs={datalogList} />
       <ThrottleGraph datalogs={datalogList} />
       <SpeedGraph datalogs={datalogList} />
+      <TrackMap datalogs={datalogList} />
     </Box>
   );
 }
