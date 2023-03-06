@@ -4,15 +4,19 @@ import { Box } from "@mui/system";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import TrackMapMarker from "./TrackMapMarker";
+import DataGauges from "../DataGauges/DataGauges";
 
 export default function TrackMap(graphProps: GraphProps): ReactElement {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
 
-  const intervalTime = 250;
+  const intervalTime = 500;
 
   const coordinates = Array<[number, number]>();
-  coordinates.push([42.40680666666667, -86.14157166666668]);
+
+  if (graphProps.datalogs.length === 0)
+    coordinates.push([42.40680666666667, -86.14157166666668]);
+
   graphProps.datalogs.forEach((datalog) => {
     coordinates.push([datalog.latitude, datalog.longitude]);
   });
@@ -51,6 +55,10 @@ export default function TrackMap(graphProps: GraphProps): ReactElement {
           intervalTime={intervalTime}
         />
       </MapContainer>
+      <DataGauges
+        datalogs={graphProps.datalogs}
+        currentIndex={currentIndex}
+      ></DataGauges>
     </Box>
   );
 }

@@ -1,14 +1,5 @@
 import { ReactElement } from "react";
 import ReactECharts from "echarts-for-react";
-import * as echarts from "echarts/core";
-import { LinesChart } from "echarts/charts";
-import {
-  GridComponent,
-  ToolboxComponent,
-  TooltipComponent,
-  TitleComponent,
-} from "echarts/components";
-import { CanvasRenderer } from "echarts/renderers";
 import GraphProps from "../Session/GraphProps";
 import { Box } from "@mui/system";
 import { format, parseISO } from "date-fns";
@@ -16,15 +7,6 @@ import { format, parseISO } from "date-fns";
 export default function BoostPressureGraph(
   graphProps: GraphProps
 ): ReactElement {
-  echarts.use([
-    TitleComponent,
-    GridComponent,
-    CanvasRenderer,
-    LinesChart,
-    ToolboxComponent,
-    TooltipComponent,
-  ]);
-
   const labels = Array<string>();
   const boostPressureDataPoints = Array<number>();
   graphProps.datalogs.forEach((datalog) => {
