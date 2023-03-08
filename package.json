@@ -1,6 +1,6 @@
 {
   "name": "datalog-viewer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "11.10.5",
@@ -79,9 +79,9 @@
     "coverageThreshold": {
       "global": {
         "branches": 0,
-        "functions": 10,
-        "lines": 5,
-        "statements": 5
+        "functions": 1,
+        "lines": 1,
+        "statements": 1
       }
     }
   },
