@@ -23,7 +23,7 @@ export default function SessionMetadataSelect(
     const getAllSessionMetadata = async () => {
       const sessionMetadataService = new SessionMetadataService();
       const response = await sessionMetadataService.getAllSessionMetadata();
-      setSessionMetadataList(response.data);
+      setSessionMetadataList([...response.data].sort(sortByStartDateTimeAsc));
     };
 
     getAllSessionMetadata();
@@ -66,19 +66,17 @@ export default function SessionMetadataSelect(
           autoWidth
           data-cy="sessionMetadataSelect"
         >
-          {sessionMetadataList
-            .sort(sortByStartDateTimeAsc)
-            .map((sessionMetadata: SessionMetadata) => {
-              return (
-                <MenuItem
-                  key={sessionMetadata.sessionId}
-                  value={sessionMetadata.sessionId}
-                >
-                  {formatDateTime(sessionMetadata.startTime)} -{" "}
-                  {formatDateTime(sessionMetadata.endTime)}
-                </MenuItem>
-              );
-            })}
+          {sessionMetadataList.map((sessionMetadata: SessionMetadata) => {
+            return (
+              <MenuItem
+                key={sessionMetadata.sessionId}
+                value={sessionMetadata.sessionId}
+              >
+                {formatDateTime(sessionMetadata.startTime)} -{" "}
+                {formatDateTime(sessionMetadata.endTime)}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </Box>

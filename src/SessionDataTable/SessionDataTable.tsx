@@ -8,6 +8,7 @@ import Datalog from "../Session/Datalog";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { ReactElement } from "react";
+import { Box } from "@mui/material";
 
 export default function SessionDataTable(
   sessionDataTableProps: SessionDataTableProps
@@ -69,12 +70,12 @@ export default function SessionDataTable(
   ];
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 400, width: "100%", paddingLeft: 1, paddingRight: 1 }}>
       <DataGrid
         rows={sessionDataTableProps.datalogs}
         columns={columns}
         getRowId={(row: Datalog) => row.timestamp}
       />
-    </div>
+    </Box>
   );
 }
