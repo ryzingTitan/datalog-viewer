@@ -1,4 +1,4 @@
-FROM node:gallium-alpine AS build
+FROM node:hydrogen-alpine AS build
 
 WORKDIR /app
 COPY package*.json ./
@@ -6,6 +6,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM nginx:1.23.3-alpine
+FROM nginx:1.24.0-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
