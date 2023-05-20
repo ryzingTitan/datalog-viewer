@@ -61,8 +61,6 @@ const router = createBrowserRouter(
   )
 );
 
-function Router(): ReactElement {
+export default function Router(): ReactElement {
   return <RouterProvider router={router} />;
 }
-
-export default Router;

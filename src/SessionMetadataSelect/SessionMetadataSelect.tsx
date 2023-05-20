@@ -11,10 +11,14 @@ import SessionMetadata from "./SessionMetadata";
 import SessionMetadataSelectProps from "./SessionMetadataSelectProps";
 import { compareAsc, format, parseISO } from "date-fns";
 import SessionMetadataService from "./SessionMetadataService";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SessionMetadataSelect(
   sessionMetadataSelectProps: SessionMetadataSelectProps
 ): ReactElement {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [sessionMetadataList, setSessionMetadataList] = useState(
     Array<SessionMetadata>()
   );
@@ -31,6 +35,13 @@ export default function SessionMetadataSelect(
 
   const handleChange = (event: SelectChangeEvent) => {
     sessionMetadataSelectProps.setSessionId(event.target.value);
+
+    if (location.pathname === "/") {
+      navigate(`/sessions/${event.target.value}/summary`);
+    } else {
+      const currentRoute = location.pathname.split("/").at(3);
+      navigate(`/sessions/${event.target.value}/${currentRoute}`);
+    }
   };
 
   const formatDateTime = (dateTime: string): string => {
