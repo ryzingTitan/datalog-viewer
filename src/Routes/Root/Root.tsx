@@ -15,11 +15,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 import SpeedIcon from "@mui/icons-material/Speed";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import SessionMetadataSelect from "../../SessionMetadataSelect/SessionMetadataSelect";
-import SessionService from "../../Session/SessionService";
-import Datalog from "../../Session/Datalog";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import MapIcon from "@mui/icons-material/Map";
 
@@ -74,7 +73,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-function Root(): ReactElement {
+export default function Root(): ReactElement {
   const [open, setOpen] = useState(false);
 
   function handleDrawerOpen() {
@@ -86,26 +85,10 @@ function Root(): ReactElement {
   }
 
   const [selectedSessionId, setSelectedSessionId] = useState("");
-  const [datalogList, setDatalogList] = useState(Array<Datalog>());
-
-  function setSessionId(newSessionId: string) {
-    const getSessionById = async (sessionId: string) => {
-      const sessionService = new SessionService();
-      const response = await sessionService.getDatalogsBySessionId(sessionId);
-      setDatalogList(response.data);
-    };
-
-    if (newSessionId !== selectedSessionId) {
-      getSessionById(newSessionId);
-    }
-
-    setSelectedSessionId(newSessionId);
-  }
 
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar position="fixed" open={open}>
-        {/* <Toolbar sx={{ justifyContent: 'space-evenly' }}> */}
         <Toolbar>
           <IconButton
             color="inherit"
@@ -120,11 +103,8 @@ function Root(): ReactElement {
           <Box sx={{ flexGrow: 1 }}>
             <SessionMetadataSelect
               selectedSessionId={selectedSessionId}
-              setSessionId={setSessionId}
+              setSessionId={setSelectedSessionId}
             ></SessionMetadataSelect>
-            {/* <Typography variant="h6" noWrap component="div"> */}
-            {/* Datalog Viewer */}
-            {/* </Typography> */}
           </Box>
         </Toolbar>
       </AppBar>
@@ -162,6 +142,16 @@ function Root(): ReactElement {
                 <ListItemText primary="Home" />
               </ListItemButton>
             </NavLink>
+          </ListItem>
+          <ListItem key="Summary" disablePadding>
+            <Link to={`/sessions/${selectedSessionId}/summary`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AnalyticsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Summary" />
+              </ListItemButton>
+            </Link>
           </ListItem>
           <ListItem key="Temperature" disablePadding>
             <Link to={`/sessions/${selectedSessionId}/temperatures`}>
@@ -216,5 +206,3 @@ function Root(): ReactElement {
     </Box>
   );
 }
-
-export default Root;

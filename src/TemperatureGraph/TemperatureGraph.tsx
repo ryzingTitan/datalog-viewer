@@ -1,14 +1,17 @@
 import { ReactElement } from "react";
 import ReactECharts from "echarts-for-react";
-import GraphProps from "../Session/GraphProps";
 import { Box } from "@mui/system";
 import { format, parseISO } from "date-fns";
+import { useLoaderData } from "react-router-dom";
+import Datalog from "../Session/Datalog";
 
-export default function TemperatureGraph(graphProps: GraphProps): ReactElement {
+export default function TemperatureGraph(): ReactElement {
+  const datalogs: Datalog[] = useLoaderData() as Datalog[];
+
   const labels = Array<string>();
   const intakeTemperatureDataPoints = Array<number>();
   const coolantTemperatureDataPoints = Array<number>();
-  graphProps.datalogs.forEach((datalog) => {
+  datalogs.forEach((datalog) => {
     labels.push(format(parseISO(datalog.timestamp), "h:mm:ss a"));
     intakeTemperatureDataPoints.push(datalog.intakeAirTemperature);
     coolantTemperatureDataPoints.push(datalog.coolantTemperature);

@@ -9,11 +9,14 @@ import {
   TitleComponent,
 } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import GraphProps from "../Session/GraphProps";
 import { Box } from "@mui/system";
 import { format, parseISO } from "date-fns";
+import { useLoaderData } from "react-router-dom";
+import Datalog from "../Session/Datalog";
 
-export default function ThrottleGraph(graphProps: GraphProps): ReactElement {
+export default function ThrottleGraph(): ReactElement {
+  const datalogs: Datalog[] = useLoaderData() as Datalog[];
+
   echarts.use([
     TitleComponent,
     GridComponent,
@@ -26,7 +29,7 @@ export default function ThrottleGraph(graphProps: GraphProps): ReactElement {
   const labels = Array<string>();
   const engineRpmDataPoints = Array<number>();
   const throttlePositionDataPoints = Array<number>();
-  graphProps.datalogs.forEach((datalog) => {
+  datalogs.forEach((datalog) => {
     labels.push(format(parseISO(datalog.timestamp), "h:mm:ss a"));
     engineRpmDataPoints.push(datalog.engineRpm);
     throttlePositionDataPoints.push(datalog.throttlePosition);

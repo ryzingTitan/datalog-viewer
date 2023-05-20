@@ -1,4 +1,5 @@
 import {
+  Params,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -12,30 +13,49 @@ import BoostPressureGraph from "../BoostPressureGraph/BoostPressureGraph";
 import ThrottleGraph from "../ThrottleGraph/ThrottleGraph";
 import SpeedGraph from "../SpeedGraph/SpeedGraph";
 import TrackMap from "../TrackMap/TrackMap";
+import SessionService from "../Session/SessionService";
+
+const sessionService = new SessionService();
+
+const datalogsLoader = async function (params: Params<string>) {
+  const response = await sessionService.getDatalogsBySessionId(
+    params.sessionId as string
+  );
+  return response.data;
+};
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
-      <Route path="" element={<SessionDataTable datalogs={[]} />}></Route>
+      <Route
+        path="/sessions/:sessionId/summary"
+        element={<SessionDataTable />}
+        loader={async ({ params }) => datalogsLoader(params)}
+      ></Route>
       <Route
         path="/sessions/:sessionId/temperatures"
-        element={<TemperatureGraph datalogs={[]} />}
+        element={<TemperatureGraph />}
+        loader={async ({ params }) => datalogsLoader(params)}
       ></Route>
       <Route
         path="/sessions/:sessionId/boost"
-        element={<BoostPressureGraph datalogs={[]} />}
+        element={<BoostPressureGraph />}
+        loader={async ({ params }) => datalogsLoader(params)}
       ></Route>
       <Route
         path="/sessions/:sessionId/throttle"
-        element={<ThrottleGraph datalogs={[]} />}
+        element={<ThrottleGraph />}
+        loader={async ({ params }) => datalogsLoader(params)}
       ></Route>
       <Route
         path="/sessions/:sessionId/speed"
-        element={<SpeedGraph datalogs={[]} />}
+        element={<SpeedGraph />}
+        loader={async ({ params }) => datalogsLoader(params)}
       ></Route>
       <Route
         path="/sessions/:sessionId/map"
-        element={<TrackMap datalogs={[]} />}
+        element={<TrackMap />}
+        loader={async ({ params }) => datalogsLoader(params)}
       ></Route>
     </Route>
   )
