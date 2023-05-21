@@ -3,7 +3,7 @@ import Datalog from "./Datalog";
 
 export default class SessionService {
   instance = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: `${process.env.REACT_APP_API_HOST}/api`,
   });
 
   public getDatalogsBySessionId(
