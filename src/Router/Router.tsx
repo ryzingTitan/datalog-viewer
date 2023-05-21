@@ -6,7 +6,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { ReactElement } from "react";
-import Root from "./Root/Root";
+import Home from "../Home/Home";
 import TemperatureGraph from "../TemperatureGraph/TemperatureGraph";
 import SessionDataTable from "../SessionDataTable/SessionDataTable";
 import BoostPressureGraph from "../BoostPressureGraph/BoostPressureGraph";
@@ -14,6 +14,7 @@ import ThrottleGraph from "../ThrottleGraph/ThrottleGraph";
 import SpeedGraph from "../SpeedGraph/SpeedGraph";
 import TrackMap from "../TrackMap/TrackMap";
 import SessionService from "../Session/SessionService";
+import Welcome from "../Welcome/Welcome";
 
 const sessionService = new SessionService();
 
@@ -26,7 +27,8 @@ const datalogsLoader = async function (params: Params<string>) {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Root />}>
+    <Route path="/" element={<Home />}>
+      <Route path="/" element={<Welcome />}></Route>
       <Route
         path="/sessions/:sessionId/summary"
         element={<SessionDataTable />}

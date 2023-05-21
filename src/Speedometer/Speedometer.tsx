@@ -5,12 +5,7 @@ import ReactECharts from "echarts-for-react";
 export default function Speedometer(
   dataGaugesProps: DataGaugesProps
 ): ReactElement {
-  let speed: number;
-  if (dataGaugesProps.datalogs.length > 0) {
-    speed = dataGaugesProps.datalogs[dataGaugesProps.currentIndex].speed;
-  } else {
-    speed = 0;
-  }
+  const speed = dataGaugesProps.datalogs[dataGaugesProps.currentIndex].speed;
 
   const option = {
     series: [

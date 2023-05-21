@@ -5,13 +5,8 @@ import ReactECharts from "echarts-for-react";
 export default function Tachometer(
   dataGaugesProps: DataGaugesProps
 ): ReactElement {
-  let engineRpm: number;
-  if (dataGaugesProps.datalogs.length > 0) {
-    engineRpm =
-      dataGaugesProps.datalogs[dataGaugesProps.currentIndex].engineRpm;
-  } else {
-    engineRpm = 0;
-  }
+  const engineRpm =
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].engineRpm;
 
   const option = {
     series: [

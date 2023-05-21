@@ -5,13 +5,8 @@ import ReactECharts from "echarts-for-react";
 export default function BoostPressureGauge(
   dataGaugesProps: DataGaugesProps
 ): ReactElement {
-  let boostPressure: number;
-  if (dataGaugesProps.datalogs.length > 0) {
-    boostPressure =
-      dataGaugesProps.datalogs[dataGaugesProps.currentIndex].boostPressure;
-  } else {
-    boostPressure = 0;
-  }
+  const boostPressure =
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].boostPressure;
 
   const option = {
     series: [

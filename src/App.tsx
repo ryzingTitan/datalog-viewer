@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Router from "./Routes/Router";
+import Router from "./Router/Router";
 import { ReactElement } from "react";
 
 const darkTheme = createTheme({
