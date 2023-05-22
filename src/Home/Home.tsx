@@ -36,7 +36,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function Root(): ReactElement {
+export default function Home(): ReactElement {
   const [open, setOpen] = useState(false);
 
   const [selectedSessionId, setSelectedSessionId] = useState("");
