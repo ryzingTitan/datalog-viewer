@@ -39,13 +39,20 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function Home(): ReactElement {
   const [open, setOpen] = useState(false);
 
-  const [selectedSessionId, setSelectedSessionId] = useState("");
+  const currentSessionId = sessionStorage.getItem("currentSessionId") || "";
+
+  const [selectedSessionId, setSelectedSessionId] = useState(currentSessionId);
+
+  function setSessionId(sessionId: string) {
+    setSelectedSessionId(sessionId);
+    sessionStorage.setItem("currentSessionId", sessionId);
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
       <Header
         selectedSessionId={selectedSessionId}
-        setSelectedSessionId={setSelectedSessionId}
+        setSelectedSessionId={setSessionId}
         open={open}
         setOpen={setOpen}
       ></Header>
