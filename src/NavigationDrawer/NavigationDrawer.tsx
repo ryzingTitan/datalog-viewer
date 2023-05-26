@@ -16,6 +16,8 @@ import SpeedIcon from "@mui/icons-material/Speed";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MapIcon from "@mui/icons-material/Map";
 import { styled } from "@mui/material/styles";
+import TurbochargerIcon from "./TurbochargerIcon";
+import TachometerIcon from "./TachometerIcon";
 
 const drawerWidth = 240;
 
@@ -98,6 +100,9 @@ export default function NavigationDrawer(
             style={{ textDecoration: "none" }}
           >
             <ListItemButton sx={{ color: "#fff" }}>
+              <ListItemIcon>
+                <TurbochargerIcon />
+              </ListItemIcon>
               <ListItemText primary="Boost" />
             </ListItemButton>
           </Link>
@@ -108,6 +113,9 @@ export default function NavigationDrawer(
             style={{ textDecoration: "none" }}
           >
             <ListItemButton sx={{ color: "#fff" }}>
+              <ListItemIcon>
+                <TachometerIcon />
+              </ListItemIcon>
               <ListItemText primary="Throttle" />
             </ListItemButton>
           </Link>
