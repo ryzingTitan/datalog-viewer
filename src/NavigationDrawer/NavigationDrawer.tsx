@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import NavigationDrawerProps from "./NavigationDrawerProps";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItem from "@mui/material/ListItem";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import List from "@mui/material/List";
@@ -57,25 +57,21 @@ export default function NavigationDrawer(
       <Divider />
       <List>
         <ListItem key="Home" disablePadding>
-          <NavLink
-            to={`/`}
-            className={({ isActive, isPending }) =>
-              isActive ? "active" : isPending ? "pending" : ""
-            }
-          >
-            <ListItemButton>
+          <Link to={`/`} style={{ textDecoration: "none" }}>
+            <ListItemButton sx={{ color: "#fff" }}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItemButton>
-          </NavLink>
+          </Link>
         </ListItem>
         <ListItem key="Summary" disablePadding>
           <Link
             to={`/sessions/${navigationDrawerProps.selectedSessionId}/summary`}
+            style={{ textDecoration: "none" }}
           >
-            <ListItemButton>
+            <ListItemButton sx={{ color: "#fff" }}>
               <ListItemIcon>
                 <AnalyticsIcon />
               </ListItemIcon>
@@ -86,8 +82,9 @@ export default function NavigationDrawer(
         <ListItem key="Temperature" disablePadding>
           <Link
             to={`/sessions/${navigationDrawerProps.selectedSessionId}/temperatures`}
+            style={{ textDecoration: "none" }}
           >
-            <ListItemButton>
+            <ListItemButton sx={{ color: "#fff" }}>
               <ListItemIcon>
                 <ThermostatIcon />
               </ListItemIcon>
@@ -98,8 +95,9 @@ export default function NavigationDrawer(
         <ListItem key="Boost" disablePadding>
           <Link
             to={`/sessions/${navigationDrawerProps.selectedSessionId}/boost`}
+            style={{ textDecoration: "none" }}
           >
-            <ListItemButton>
+            <ListItemButton sx={{ color: "#fff" }}>
               <ListItemText primary="Boost" />
             </ListItemButton>
           </Link>
@@ -107,8 +105,9 @@ export default function NavigationDrawer(
         <ListItem key="Throttle" disablePadding>
           <Link
             to={`/sessions/${navigationDrawerProps.selectedSessionId}/throttle`}
+            style={{ textDecoration: "none" }}
           >
-            <ListItemButton>
+            <ListItemButton sx={{ color: "#fff" }}>
               <ListItemText primary="Throttle" />
             </ListItemButton>
           </Link>
@@ -116,8 +115,9 @@ export default function NavigationDrawer(
         <ListItem key="Speed" disablePadding>
           <Link
             to={`/sessions/${navigationDrawerProps.selectedSessionId}/speed`}
+            style={{ textDecoration: "none" }}
           >
-            <ListItemButton>
+            <ListItemButton sx={{ color: "#fff" }}>
               <ListItemIcon>
                 <SpeedIcon />
               </ListItemIcon>
@@ -126,8 +126,11 @@ export default function NavigationDrawer(
           </Link>
         </ListItem>
         <ListItem key="Map" disablePadding>
-          <Link to={`/sessions/${navigationDrawerProps.selectedSessionId}/map`}>
-            <ListItemButton>
+          <Link
+            to={`/sessions/${navigationDrawerProps.selectedSessionId}/map`}
+            style={{ textDecoration: "none" }}
+          >
+            <ListItemButton sx={{ color: "#fff" }}>
               <ListItemIcon>
                 <MapIcon />
               </ListItemIcon>
