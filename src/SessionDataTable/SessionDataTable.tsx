@@ -72,7 +72,6 @@ export default function SessionDataTable(): ReactElement {
 
   return (
     <Box
-      height={{}}
       sx={{
         width: "100%",
         paddingTop: 1,
@@ -83,8 +82,8 @@ export default function SessionDataTable(): ReactElement {
         rows={datalogs}
         columns={columns}
         getRowId={(row: Datalog) => row.timestamp}
-        components={{
-          Toolbar: GridToolbar,
+        slots={{
+          toolbar: GridToolbar,
         }}
       />
     </Box>
