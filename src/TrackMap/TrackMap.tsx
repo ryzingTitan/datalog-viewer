@@ -1,12 +1,15 @@
 import { ReactElement, useEffect, useState } from "react";
-import GraphProps from "../Session/GraphProps";
 import { Box } from "@mui/system";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import TrackMapMarker from "./TrackMapMarker";
 import DataGauges from "../DataGauges/DataGauges";
+import { useLoaderData } from "react-router-dom";
+import Datalog from "../Session/Datalog";
 
-export default function TrackMap(graphProps: GraphProps): ReactElement {
+export default function TrackMap(): ReactElement {
+  const datalogs: Datalog[] = useLoaderData() as Datalog[];
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
 
@@ -14,10 +17,7 @@ export default function TrackMap(graphProps: GraphProps): ReactElement {
 
   const coordinates = Array<[number, number]>();
 
-  if (graphProps.datalogs.length === 0)
-    coordinates.push([42.40680666666667, -86.14157166666668]);
-
-  graphProps.datalogs.forEach((datalog) => {
+  datalogs.forEach((datalog) => {
     coordinates.push([datalog.latitude, datalog.longitude]);
   });
 
@@ -55,10 +55,7 @@ export default function TrackMap(graphProps: GraphProps): ReactElement {
           intervalTime={intervalTime}
         />
       </MapContainer>
-      <DataGauges
-        datalogs={graphProps.datalogs}
-        currentIndex={currentIndex}
-      ></DataGauges>
+      <DataGauges datalogs={datalogs} currentIndex={currentIndex}></DataGauges>
     </Box>
   );
 }

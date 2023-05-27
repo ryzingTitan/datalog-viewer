@@ -1,18 +1,19 @@
 import {
   DataGrid,
   GridColDef,
+  GridToolbar,
   GridValueFormatterParams,
 } from "@mui/x-data-grid";
-import SessionDataTableProps from "./SessionDataTableProps";
 import Datalog from "../Session/Datalog";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { ReactElement } from "react";
 import { Box } from "@mui/material";
+import { useLoaderData } from "react-router-dom";
 
-export default function SessionDataTable(
-  sessionDataTableProps: SessionDataTableProps
-): ReactElement {
+export default function SessionDataTable(): ReactElement {
+  const datalogs: Datalog[] = useLoaderData() as Datalog[];
+
   const columns: GridColDef[] = [
     {
       field: "timestamp",
@@ -70,11 +71,20 @@ export default function SessionDataTable(
   ];
 
   return (
-    <Box sx={{ height: 400, width: "100%", paddingLeft: 1, paddingRight: 1 }}>
+    <Box
+      sx={{
+        width: "100%",
+        paddingTop: 1,
+      }}
+    >
       <DataGrid
-        rows={sessionDataTableProps.datalogs}
+        autoHeight
+        rows={datalogs}
         columns={columns}
         getRowId={(row: Datalog) => row.timestamp}
+        slots={{
+          toolbar: GridToolbar,
+        }}
       />
     </Box>
   );

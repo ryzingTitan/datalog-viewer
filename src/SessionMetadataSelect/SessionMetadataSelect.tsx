@@ -11,10 +11,29 @@ import SessionMetadata from "./SessionMetadata";
 import SessionMetadataSelectProps from "./SessionMetadataSelectProps";
 import { compareAsc, format, parseISO } from "date-fns";
 import SessionMetadataService from "./SessionMetadataService";
+import { useLocation, useNavigate } from "react-router-dom";
+
+function sortByStartDateTimeAsc(
+  firstSessionMetadata: SessionMetadata,
+  secondSessionMetadata: SessionMetadata
+): number {
+  const firstDate = parseISO(firstSessionMetadata.startTime);
+  const secondDate = parseISO(secondSessionMetadata.startTime);
+
+  return compareAsc(firstDate, secondDate);
+}
+
+const formatDateTime = (dateTime: string): string => {
+  const date = parseISO(dateTime);
+  return format(date, "MM-dd-yyyy h:mm a");
+};
 
 export default function SessionMetadataSelect(
   sessionMetadataSelectProps: SessionMetadataSelectProps
 ): ReactElement {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [sessionMetadataList, setSessionMetadataList] = useState(
     Array<SessionMetadata>()
   );
@@ -31,22 +50,14 @@ export default function SessionMetadataSelect(
 
   const handleChange = (event: SelectChangeEvent) => {
     sessionMetadataSelectProps.setSessionId(event.target.value);
+
+    if (location.pathname === "/") {
+      navigate(`/sessions/${event.target.value}/summary`);
+    } else {
+      const currentRoute = location.pathname.split("/").at(3);
+      navigate(`/sessions/${event.target.value}/${currentRoute}`);
+    }
   };
-
-  const formatDateTime = (dateTime: string): string => {
-    const date = parseISO(dateTime);
-    return format(date, "MM-dd-yyyy h:mm a");
-  };
-
-  function sortByStartDateTimeAsc(
-    firstSessionMetadata: SessionMetadata,
-    secondSessionMetadata: SessionMetadata
-  ): number {
-    const firstDate = parseISO(firstSessionMetadata.startTime);
-    const secondDate = parseISO(secondSessionMetadata.startTime);
-
-    return compareAsc(firstDate, secondDate);
-  }
 
   return (
     <Box margin={2} textAlign="center">

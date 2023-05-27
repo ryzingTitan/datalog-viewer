@@ -5,13 +5,8 @@ import ReactECharts from "echarts-for-react";
 export default function CoolantTemperatureGauge(
   dataGaugesProps: DataGaugesProps
 ): ReactElement {
-  let coolantTemperature: number;
-  if (dataGaugesProps.datalogs.length > 0) {
-    coolantTemperature =
-      dataGaugesProps.datalogs[dataGaugesProps.currentIndex].coolantTemperature;
-  } else {
-    coolantTemperature = 0;
-  }
+  const coolantTemperature =
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].coolantTemperature;
 
   const option = {
     series: [

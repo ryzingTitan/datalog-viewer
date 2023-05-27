@@ -5,13 +5,8 @@ import ReactECharts from "echarts-for-react";
 export default function ThrottlePositionGauge(
   dataGaugesProps: DataGaugesProps
 ): ReactElement {
-  let throttlePosition: number;
-  if (dataGaugesProps.datalogs.length > 0) {
-    throttlePosition =
-      dataGaugesProps.datalogs[dataGaugesProps.currentIndex].throttlePosition;
-  } else {
-    throttlePosition = 0;
-  }
+  const throttlePosition =
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].throttlePosition;
 
   const option = {
     series: [
