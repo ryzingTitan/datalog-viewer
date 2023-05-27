@@ -1,6 +1,7 @@
 import {
   DataGrid,
   GridColDef,
+  GridToolbar,
   GridValueFormatterParams,
 } from "@mui/x-data-grid";
 import Datalog from "../Session/Datalog";
@@ -71,16 +72,20 @@ export default function SessionDataTable(): ReactElement {
 
   return (
     <Box
+      height={{}}
       sx={{
-        height: 400,
         width: "100%",
         paddingTop: 1,
       }}
     >
       <DataGrid
+        autoHeight
         rows={datalogs}
         columns={columns}
         getRowId={(row: Datalog) => row.timestamp}
+        components={{
+          Toolbar: GridToolbar,
+        }}
       />
     </Box>
   );
