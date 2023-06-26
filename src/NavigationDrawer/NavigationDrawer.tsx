@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import NavigationDrawerProps from "./NavigationDrawerProps";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItem from "@mui/material/ListItem";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import List from "@mui/material/List";
@@ -37,6 +37,8 @@ export default function NavigationDrawer(
     navigationDrawerProps.setOpen(false);
   }
 
+  const location = useLocation();
+
   return (
     <Drawer
       sx={{
@@ -60,7 +62,10 @@ export default function NavigationDrawer(
       <List>
         <ListItem key="Home" disablePadding>
           <Link to={`/`} style={{ textDecoration: "none" }}>
-            <ListItemButton sx={{ color: "#fff" }}>
+            <ListItemButton
+              sx={{ color: "#fff" }}
+              selected={location.pathname === "/"}
+            >
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -73,7 +78,13 @@ export default function NavigationDrawer(
             to={`/sessions/${navigationDrawerProps.selectedSessionId}/summary`}
             style={{ textDecoration: "none" }}
           >
-            <ListItemButton sx={{ color: "#fff" }}>
+            <ListItemButton
+              sx={{ color: "#fff" }}
+              selected={
+                location.pathname ===
+                `/sessions/${navigationDrawerProps.selectedSessionId}/summary`
+              }
+            >
               <ListItemIcon>
                 <AnalyticsIcon />
               </ListItemIcon>
