@@ -6,12 +6,14 @@ import TrackMapMarker from "./TrackMapMarker";
 import DataGauges from "../DataGauges/DataGauges";
 import { useLoaderData } from "react-router-dom";
 import Datalog from "../Session/Datalog";
+import TrackMapButtons from "../TrackMapButtons/TrackMapButtons";
 
 export default function TrackMap(): ReactElement {
   const datalogs: Datalog[] = useLoaderData() as Datalog[];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const intervalTime = 500;
 
@@ -21,20 +23,32 @@ export default function TrackMap(): ReactElement {
     coordinates.push([datalog.latitude, datalog.longitude]);
   });
 
+  function changePlaySpeed(speed: number) {
+    // playSpeed = speed;
+  }
+
+  function restartSession() {
+    //   setCurrentIndex(0);
+    //   setPreviousIndex(0);
+    //  clear interval if it exists
+  }
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (currentIndex >= coordinates.length - 1) {
-        setCurrentIndex(0);
-        setPreviousIndex(0);
-        return;
-      }
+    if (isPlaying) {
+      const interval = setInterval(() => {
+        if (currentIndex >= coordinates.length - 1) {
+          setCurrentIndex(0);
+          setPreviousIndex(0);
+          return;
+        }
 
-      setPreviousIndex(currentIndex);
-      setCurrentIndex(currentIndex + 1);
-    }, intervalTime);
+        setPreviousIndex(currentIndex);
+        setCurrentIndex(currentIndex + 1);
+      }, intervalTime);
 
-    return () => clearInterval(interval);
-  }, [coordinates.length, currentIndex]);
+      return () => clearInterval(interval);
+    }
+  }, [coordinates.length, currentIndex, isPlaying]);
 
   return (
     <Box sx={{ paddingTop: 2 }}>
@@ -55,6 +69,10 @@ export default function TrackMap(): ReactElement {
           intervalTime={intervalTime}
         />
       </MapContainer>
+      <TrackMapButtons
+        setIsPlaying={setIsPlaying}
+        changePlaySpeed={changePlaySpeed}
+      ></TrackMapButtons>
       <DataGauges datalogs={datalogs} currentIndex={currentIndex}></DataGauges>
     </Box>
   );
