@@ -21,7 +21,7 @@ const sessionService = new SessionService();
 
 const datalogsLoader = async function (params: Params<string>) {
   const response = await sessionService.getDatalogsBySessionId(
-    params.sessionId as string
+    params.sessionId as string,
   );
   return response.data;
 };
@@ -62,8 +62,8 @@ const router = createBrowserRouter(
           loader={async ({ params }) => datalogsLoader(params)}
         />
       </Route>
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 export default function Router(): ReactElement {

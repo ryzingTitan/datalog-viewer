@@ -31,7 +31,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function NavigationDrawer(
-  navigationDrawerProps: NavigationDrawerProps
+  navigationDrawerProps: NavigationDrawerProps,
 ): ReactElement {
   function handleDrawerClose() {
     navigationDrawerProps.setOpen(false);

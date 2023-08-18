@@ -3,10 +3,10 @@ import DataGaugesProps from "../DataGauges/DataGaugesProps";
 import ReactECharts from "echarts-for-react";
 
 export default function BoostPressureGauge(
-  dataGaugesProps: DataGaugesProps
+  dataGaugesProps: DataGaugesProps,
 ): ReactElement {
   const boostPressure =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].boostPressure;
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].data.boostPressure;
 
   const option = {
     series: [

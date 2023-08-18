@@ -3,10 +3,11 @@ import DataGaugesProps from "../DataGauges/DataGaugesProps";
 import ReactECharts from "echarts-for-react";
 
 export default function ThrottlePositionGauge(
-  dataGaugesProps: DataGaugesProps
+  dataGaugesProps: DataGaugesProps,
 ): ReactElement {
   const throttlePosition =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].throttlePosition;
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].data
+      .throttlePosition;
 
   const option = {
     series: [

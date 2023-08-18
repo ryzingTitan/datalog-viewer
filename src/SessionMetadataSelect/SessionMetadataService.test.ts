@@ -17,7 +17,7 @@ describe("Session Metadata Service", () => {
       .onGet("/sessions/metadata")
       .reply(200, JSON.stringify(Array.of(firstSessionMetadata)));
 
-    const response = await sessionMetadataService.getAllSessionMetadata();
+    const response = await sessionMetadataService.getAllSessionMetadata("");
 
     expect(response.status).toBe(200);
     expect(response.data).toStrictEqual(Array.of(firstSessionMetadata));
@@ -38,14 +38,14 @@ describe("Session Metadata Service", () => {
       .onGet("/sessions/metadata")
       .reply(
         200,
-        JSON.stringify(Array.of(firstSessionMetadata, secondSessionMetadata))
+        JSON.stringify(Array.of(firstSessionMetadata, secondSessionMetadata)),
       );
 
-    const response = await sessionMetadataService.getAllSessionMetadata();
+    const response = await sessionMetadataService.getAllSessionMetadata("");
 
     expect(response.status).toBe(200);
     expect(response.data).toStrictEqual(
-      Array.of(firstSessionMetadata, secondSessionMetadata)
+      Array.of(firstSessionMetadata, secondSessionMetadata),
     );
   });
 
@@ -55,7 +55,7 @@ describe("Session Metadata Service", () => {
     apiMock.onGet("/sessions/metadata").reply(500, null);
 
     try {
-      await sessionMetadataService.getAllSessionMetadata();
+      await sessionMetadataService.getAllSessionMetadata("");
     } catch (error: any) {
       errorResponse = error as AxiosError;
     }

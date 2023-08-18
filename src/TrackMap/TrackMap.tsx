@@ -20,9 +20,11 @@ export default function TrackMap(): ReactElement {
   const intervalTime = 1000;
 
   const coordinates = Array<[number, number]>();
+  const trackLongitude = datalogs.at(0)?.trackInfo.longitude;
+  const trackLatitude = datalogs.at(0)?.trackInfo.latitude;
 
   datalogs.forEach((datalog) => {
-    coordinates.push([datalog.latitude, datalog.longitude]);
+    coordinates.push([datalog.data.latitude, datalog.data.longitude]);
   });
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function TrackMap(): ReactElement {
       <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
         <MapContainer
           style={{ height: 420, width: 900 }}
-          center={[42.4086, -86.1374]}
+          center={[trackLatitude!, trackLongitude!]}
           zoom={16}
           scrollWheelZoom={false}
         >

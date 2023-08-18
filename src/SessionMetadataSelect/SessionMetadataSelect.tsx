@@ -15,7 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function sortByStartDateTimeAsc(
   firstSessionMetadata: SessionMetadata,
-  secondSessionMetadata: SessionMetadata
+  secondSessionMetadata: SessionMetadata,
 ): number {
   const firstDate = parseISO(firstSessionMetadata.startTime);
   const secondDate = parseISO(secondSessionMetadata.startTime);
@@ -29,24 +29,29 @@ const formatDateTime = (dateTime: string): string => {
 };
 
 export default function SessionMetadataSelect(
-  sessionMetadataSelectProps: SessionMetadataSelectProps
+  sessionMetadataSelectProps: SessionMetadataSelectProps,
 ): ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [sessionMetadataList, setSessionMetadataList] = useState(
-    Array<SessionMetadata>()
+    Array<SessionMetadata>(),
   );
 
-  useEffect(function () {
-    const getAllSessionMetadata = async () => {
-      const sessionMetadataService = new SessionMetadataService();
-      const response = await sessionMetadataService.getAllSessionMetadata();
-      setSessionMetadataList([...response.data].sort(sortByStartDateTimeAsc));
-    };
+  useEffect(
+    function () {
+      const getAllSessionMetadata = async () => {
+        const sessionMetadataService = new SessionMetadataService();
+        const response = await sessionMetadataService.getAllSessionMetadata(
+          sessionMetadataSelectProps.email,
+        );
+        setSessionMetadataList([...response.data].sort(sortByStartDateTimeAsc));
+      };
 
-    getAllSessionMetadata();
-  }, []);
+      getAllSessionMetadata();
+    },
+    [sessionMetadataSelectProps.email],
+  );
 
   const handleChange = (event: SelectChangeEvent) => {
     sessionMetadataSelectProps.setSessionId(event.target.value);

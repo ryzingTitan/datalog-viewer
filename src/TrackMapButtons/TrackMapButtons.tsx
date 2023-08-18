@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 export default function TrackMapButtons(
-  trackMapButtonsProps: TrackMapButtonsProps
+  trackMapButtonsProps: TrackMapButtonsProps,
 ): ReactElement {
   function playSession() {
     trackMapButtonsProps.setIsPlaying(true);

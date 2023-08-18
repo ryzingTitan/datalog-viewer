@@ -6,9 +6,18 @@ export default class SessionMetadataService {
     baseURL: `${process.env.REACT_APP_API_HOST}/api`,
   });
 
-  public getAllSessionMetadata(): Promise<
-    AxiosResponse<Array<SessionMetadata>>
-  > {
-    return this.instance.get<Array<SessionMetadata>>("/sessions/metadata");
+  public getAllSessionMetadata(
+    email: string,
+  ): Promise<AxiosResponse<Array<SessionMetadata>>> {
+    let encodedEmail = encodeURIComponent(email);
+
+    return this.instance.get<Array<SessionMetadata>>(
+      `/sessions/metadata?username=${encodedEmail}`,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+        },
+      },
+    );
   }
 }

@@ -3,10 +3,11 @@ import DataGaugesProps from "../DataGauges/DataGaugesProps";
 import ReactECharts from "echarts-for-react";
 
 export default function IntakeAirTemperatureGauge(
-  dataGaugesProps: DataGaugesProps
+  dataGaugesProps: DataGaugesProps,
 ): ReactElement {
   const intakeAirTemperature =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].intakeAirTemperature;
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].data
+      .intakeAirTemperature;
 
   const option = {
     series: [
