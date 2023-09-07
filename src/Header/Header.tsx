@@ -1,12 +1,13 @@
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import SessionMetadataSelect from "../SessionMetadataSelect/SessionMetadataSelect";
 import { styled } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import HeaderProps from "./HeaderProps";
+import { Stack } from "@mui/material";
+import Login from "../Login/Login";
 
 const drawerWidth = 240;
 
@@ -32,6 +33,8 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function Header(headerProps: HeaderProps): ReactElement {
+  const [email, setEmail] = useState(sessionStorage.getItem("email") as string);
+
   function handleDrawerOpen() {
     headerProps.setOpen(true);
   }
@@ -39,22 +42,28 @@ export default function Header(headerProps: HeaderProps): ReactElement {
   return (
     <AppBar position="fixed" open={headerProps.open}>
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{ mr: 2, ...(headerProps.open && { display: "none" }) }}
+        <Stack
+          direction={"row"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          sx={{ flexGrow: 1 }}
         >
-          <MenuIcon />
-        </IconButton>
-
-        <Box sx={{ flexGrow: 1 }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(headerProps.open && { display: "none" }) }}
+          >
+            <MenuIcon />
+          </IconButton>
           <SessionMetadataSelect
             selectedSessionId={headerProps.selectedSessionId}
             setSessionId={headerProps.setSelectedSessionId}
+            email={email}
           ></SessionMetadataSelect>
-        </Box>
+          <Login setEmail={setEmail} />
+        </Stack>
       </Toolbar>
     </AppBar>
   );

@@ -31,8 +31,8 @@ export default function ThrottleGraph(): ReactElement {
   const throttlePositionDataPoints = Array<number>();
   datalogs.forEach((datalog) => {
     labels.push(format(parseISO(datalog.timestamp), "h:mm:ss a"));
-    engineRpmDataPoints.push(datalog.engineRpm);
-    throttlePositionDataPoints.push(datalog.throttlePosition);
+    engineRpmDataPoints.push(datalog.data.engineRpm);
+    throttlePositionDataPoints.push(datalog.data.throttlePosition);
   });
 
   const option = {

@@ -12,7 +12,7 @@ describe("Session Metadata Service", () => {
     const firstDatalog = {} as Datalog;
     firstDatalog.sessionId = sessionId;
     firstDatalog.timestamp = new Date().toISOString();
-    firstDatalog.intakeAirTemperature = 155;
+    firstDatalog.data.intakeAirTemperature = 155;
 
     apiMock
       .onGet("/sessions/".concat(sessionId).concat("/datalogs"))
@@ -28,12 +28,12 @@ describe("Session Metadata Service", () => {
     const firstDatalog = {} as Datalog;
     firstDatalog.sessionId = sessionId;
     firstDatalog.timestamp = new Date().toISOString();
-    firstDatalog.intakeAirTemperature = 160;
+    firstDatalog.data.intakeAirTemperature = 160;
 
     const secondDatalog = {} as Datalog;
     secondDatalog.sessionId = sessionId;
     secondDatalog.timestamp = new Date().toISOString();
-    secondDatalog.intakeAirTemperature = 165;
+    secondDatalog.data.intakeAirTemperature = 165;
 
     apiMock
       .onGet("/sessions/".concat(sessionId).concat("/datalogs"))

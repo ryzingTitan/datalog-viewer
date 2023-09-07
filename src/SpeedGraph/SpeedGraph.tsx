@@ -12,7 +12,7 @@ export default function SpeedGraph(): ReactElement {
   const speedDataPoints = Array<number>();
   datalogs.forEach((datalog) => {
     labels.push(format(parseISO(datalog.timestamp), "h:mm:ss a"));
-    speedDataPoints.push(datalog.speed);
+    speedDataPoints.push(datalog.data.speed);
   });
 
   const option = {

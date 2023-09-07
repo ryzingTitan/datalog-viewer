@@ -3,10 +3,10 @@ import DataGaugesProps from "../DataGauges/DataGaugesProps";
 import ReactECharts from "echarts-for-react";
 
 export default function Tachometer(
-  dataGaugesProps: DataGaugesProps
+  dataGaugesProps: DataGaugesProps,
 ): ReactElement {
   const engineRpm =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].engineRpm;
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].data.engineRpm;
 
   const option = {
     series: [

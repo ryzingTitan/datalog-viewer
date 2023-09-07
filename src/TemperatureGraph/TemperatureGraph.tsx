@@ -13,8 +13,8 @@ export default function TemperatureGraph(): ReactElement {
   const coolantTemperatureDataPoints = Array<number>();
   datalogs.forEach((datalog) => {
     labels.push(format(parseISO(datalog.timestamp), "h:mm:ss a"));
-    intakeTemperatureDataPoints.push(datalog.intakeAirTemperature);
-    coolantTemperatureDataPoints.push(datalog.coolantTemperature);
+    intakeTemperatureDataPoints.push(datalog.data.intakeAirTemperature);
+    coolantTemperatureDataPoints.push(datalog.data.coolantTemperature);
   });
 
   const option = {

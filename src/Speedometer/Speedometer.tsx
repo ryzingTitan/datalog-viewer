@@ -3,9 +3,10 @@ import DataGaugesProps from "../DataGauges/DataGaugesProps";
 import ReactECharts from "echarts-for-react";
 
 export default function Speedometer(
-  dataGaugesProps: DataGaugesProps
+  dataGaugesProps: DataGaugesProps,
 ): ReactElement {
-  const speed = dataGaugesProps.datalogs[dataGaugesProps.currentIndex].speed;
+  const speed =
+    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].data.speed;
 
   const option = {
     series: [

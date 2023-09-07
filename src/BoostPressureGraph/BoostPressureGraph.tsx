@@ -12,7 +12,7 @@ export default function BoostPressureGraph(): ReactElement {
   const boostPressureDataPoints = Array<number>();
   datalogs.forEach((datalog) => {
     labels.push(format(parseISO(datalog.timestamp), "h:mm:ss a"));
-    boostPressureDataPoints.push(datalog.boostPressure);
+    boostPressureDataPoints.push(datalog.data.boostPressure);
   });
 
   const option = {

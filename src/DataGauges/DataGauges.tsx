@@ -10,7 +10,7 @@ import Tachometer from "../Tachometer/Tachometer";
 import ThrottlePositionGauge from "../ThrottlePositionGauge/ThrottlePositionGauge";
 
 export default function DataGauges(
-  dataGaugesProps: DataGaugesProps
+  dataGaugesProps: DataGaugesProps,
 ): ReactElement {
   return (
     <Box sx={{ paddingTop: 2 }}>

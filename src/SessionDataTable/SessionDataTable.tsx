@@ -3,6 +3,7 @@ import {
   GridColDef,
   GridToolbar,
   GridValueFormatterParams,
+  GridValueGetterParams,
 } from "@mui/x-data-grid";
 import Datalog from "../Session/Datalog";
 import parseISO from "date-fns/parseISO";
@@ -13,62 +14,6 @@ import { useLoaderData } from "react-router-dom";
 
 export default function SessionDataTable(): ReactElement {
   const datalogs: Datalog[] = useLoaderData() as Datalog[];
-
-  const columns: GridColDef[] = [
-    {
-      field: "timestamp",
-      headerName: "Timestamp",
-      width: 200,
-      headerAlign: "center",
-      align: "center",
-      valueFormatter: (params: GridValueFormatterParams<string>) => {
-        const date = parseISO(params.value);
-        return format(date, "MM-dd-yyyy h:mm:ss a");
-      },
-    },
-    {
-      field: "intakeAirTemperature",
-      headerName: "Intake Air Temperature",
-      headerAlign: "center",
-      align: "center",
-      width: 175,
-    },
-    {
-      field: "boostPressure",
-      headerName: "Boost Pressure (PSI)",
-      headerAlign: "center",
-      align: "center",
-      width: 150,
-    },
-    {
-      field: "coolantTemperature",
-      headerName: "Coolant Temperature",
-      headerAlign: "center",
-      align: "center",
-      width: 150,
-    },
-    {
-      field: "engineRpm",
-      headerName: "Engine RPM",
-      headerAlign: "center",
-      align: "center",
-      width: 125,
-    },
-    {
-      field: "speed",
-      headerName: "Speed (MPH)",
-      headerAlign: "center",
-      align: "center",
-      width: 125,
-    },
-    {
-      field: "throttlePosition",
-      headerName: "Throttle Position",
-      headerAlign: "center",
-      align: "center",
-      width: 125,
-    },
-  ];
 
   return (
     <Box
@@ -89,3 +34,80 @@ export default function SessionDataTable(): ReactElement {
     </Box>
   );
 }
+
+const columns: GridColDef[] = [
+  {
+    field: "timestamp",
+    headerName: "Timestamp",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    valueFormatter: (params: GridValueFormatterParams<string>) => {
+      const date = parseISO(params.value);
+      return format(date, "MM-dd-yyyy h:mm:ss a");
+    },
+  },
+  {
+    field: "intakeAirTemperature",
+    headerName: "Intake Air Temperature",
+    headerAlign: "center",
+    align: "center",
+    flex: 0.75,
+    valueGetter: (params: GridValueGetterParams<Datalog>) =>
+      params.row.data.intakeAirTemperature,
+  },
+  {
+    field: "boostPressure",
+    headerName: "Boost Pressure (PSI)",
+    headerAlign: "center",
+    align: "center",
+    flex: 0.75,
+    valueGetter: (params: GridValueGetterParams<Datalog>) =>
+      params.row.data.boostPressure,
+  },
+  {
+    field: "coolantTemperature",
+    headerName: "Coolant Temperature",
+    headerAlign: "center",
+    align: "center",
+    flex: 0.75,
+    valueGetter: (params: GridValueGetterParams<Datalog>) =>
+      params.row.data.coolantTemperature,
+  },
+  {
+    field: "engineRpm",
+    headerName: "Engine RPM",
+    headerAlign: "center",
+    align: "center",
+    flex: 0.75,
+    valueGetter: (params: GridValueGetterParams<Datalog>) =>
+      params.row.data.engineRpm,
+  },
+  {
+    field: "speed",
+    headerName: "Speed (MPH)",
+    headerAlign: "center",
+    align: "center",
+    flex: 0.5,
+    valueGetter: (params: GridValueGetterParams<Datalog>) =>
+      params.row.data.speed,
+  },
+  {
+    field: "throttlePosition",
+    headerName: "Throttle Position",
+    headerAlign: "center",
+    align: "center",
+    flex: 0.75,
+    valueGetter: (params: GridValueGetterParams<Datalog>) =>
+      params.row.data.throttlePosition,
+  },
+  {
+    field: "airFuelRatio",
+    headerName: "AFR",
+    headerAlign: "center",
+    align: "center",
+    flex: 0.5,
+    valueGetter: (params: GridValueGetterParams<Datalog>) =>
+      params.row.data.airFuelRatio,
+  },
+];
