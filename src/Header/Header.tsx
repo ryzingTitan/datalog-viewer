@@ -6,10 +6,8 @@ import SessionMetadataSelect from "../SessionMetadataSelect/SessionMetadataSelec
 import { styled } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import HeaderProps from "./HeaderProps";
-import { GoogleLogin } from "@react-oauth/google";
 import { Stack } from "@mui/material";
-import jwtDecode from "jwt-decode";
-import GcpJwt from "./GcpJwt";
+import Login from "../Login/Login";
 
 const drawerWidth = 240;
 
@@ -64,24 +62,7 @@ export default function Header(headerProps: HeaderProps): ReactElement {
             setSessionId={headerProps.setSelectedSessionId}
             email={email}
           ></SessionMetadataSelect>
-          <GoogleLogin
-            type={"icon"}
-            theme={"filled_blue"}
-            onSuccess={(credentialResponse) => {
-              sessionStorage.setItem(
-                "jwt",
-                credentialResponse.credential as string,
-              );
-              let decodedJwt: GcpJwt = jwtDecode(
-                credentialResponse.credential as string,
-              );
-              sessionStorage.setItem("email", decodedJwt.email);
-              setEmail(decodedJwt.email);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
+          <Login setEmail={setEmail} />
         </Stack>
       </Toolbar>
     </AppBar>
