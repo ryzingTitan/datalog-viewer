@@ -40,7 +40,7 @@ export default function ThrottleGraph(): ReactElement {
         },
         {
           id: "throttlePosition",
-          valueFormatter: (value: string) => `${value} %`,
+          valueFormatter: (value: string) => `${value}%`,
         },
       ]}
       series={[
@@ -53,7 +53,7 @@ export default function ThrottleGraph(): ReactElement {
         {
           data: throttlePositionDataPoints,
           label: "Throttle Position",
-          valueFormatter: (value: number) => `${value} %`,
+          valueFormatter: (value: number) => `${value}%`,
           yAxisKey: "throttlePosition",
         },
       ]}

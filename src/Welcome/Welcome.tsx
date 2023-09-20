@@ -7,7 +7,7 @@ export default function Welcome(): ReactElement {
   return (
     <Stack alignItems={"center"}>
       <Typography variant="h2">Welcome to the Datalog Viewer!</Typography>
-      <QueryStatsIcon sx={{ fontSize: 300 }} />
+      <QueryStatsIcon sx={{ fontSize: 300 }} titleAccess={"QueryStatsIcon"} />
     </Stack>
   );
 }
