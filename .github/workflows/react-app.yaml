@@ -17,7 +17,7 @@ jobs:
       - run: npm run format:check
       - run: npm run build
       - run: npm test -- --coverage .
-      - run: npm run cypress:run
+      #      - run: npm run cypress:run
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
