@@ -36,7 +36,6 @@ export default function TemperatureGraph(): ReactElement {
       yAxis={[
         {
           valueFormatter: (value: string) => `${value} \u2109`,
-          min: 100,
         },
       ]}
       series={[
