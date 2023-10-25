@@ -22,9 +22,9 @@ describe("TrackMapButtonsComponent", () => {
       />,
     );
 
-    expect(screen.getByTitle("RestartButton")).toBeInTheDocument();
-    expect(screen.getByTitle("PauseButton")).toBeInTheDocument();
-    expect(screen.getByTitle("PlayButton")).toBeInTheDocument();
+    expect(screen.getByTitle("Restart Button")).toBeInTheDocument();
+    expect(screen.getByTitle("Pause Button")).toBeInTheDocument();
+    expect(screen.getByTitle("Play Button")).toBeInTheDocument();
     expect(screen.getByText("1x")).toBeInTheDocument();
   });
 
@@ -38,7 +38,7 @@ describe("TrackMapButtonsComponent", () => {
       />,
     );
 
-    fireEvent.click(screen.getByTitle("RestartButton"));
+    fireEvent.click(screen.getByTitle("Restart Button"));
 
     expect(props.setCurrentIndex).toHaveBeenCalledWith(0);
   });
@@ -53,7 +53,7 @@ describe("TrackMapButtonsComponent", () => {
       />,
     );
 
-    fireEvent.click(screen.getByTitle("PlayButton"));
+    fireEvent.click(screen.getByTitle("Play Button"));
 
     expect(props.setIsPlaying).toHaveBeenCalledWith(true);
   });
@@ -68,7 +68,7 @@ describe("TrackMapButtonsComponent", () => {
       />,
     );
 
-    fireEvent.click(screen.getByTitle("PauseButton"));
+    fireEvent.click(screen.getByTitle("Pause Button"));
 
     expect(props.setIsPlaying).toHaveBeenCalledWith(false);
   });

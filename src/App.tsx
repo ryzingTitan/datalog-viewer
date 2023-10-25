@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Router from "./Router/Router";
@@ -18,12 +17,10 @@ function App(): ReactElement {
         "272176763337-1b7jgk6dhvc01br9vih0hfcirvar31pa.apps.googleusercontent.com"
       }
     >
-      <Box>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <Router />
-        </ThemeProvider>
-      </Box>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Router />
+      </ThemeProvider>
     </GoogleOAuthProvider>
   );
 }

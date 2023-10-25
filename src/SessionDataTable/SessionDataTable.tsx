@@ -9,29 +9,26 @@ import Datalog from "../Session/Datalog";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { ReactElement } from "react";
-import { Box } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
+import SessionDataTableProps from "./SessionDataTableProps";
 
-export default function SessionDataTable(): ReactElement {
+export default function SessionDataTable(
+  sessionDataTableProps: SessionDataTableProps,
+): ReactElement {
   const datalogs: Datalog[] = useLoaderData() as Datalog[];
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        paddingTop: 1,
+    <DataGrid
+      sx={{ margin: 1 }}
+      autoHeight
+      rows={datalogs}
+      columns={columns}
+      getRowId={(row: Datalog) => row.timestamp}
+      slots={{
+        toolbar: GridToolbar,
       }}
-    >
-      <DataGrid
-        autoHeight
-        rows={datalogs}
-        columns={columns}
-        getRowId={(row: Datalog) => row.timestamp}
-        slots={{
-          toolbar: GridToolbar,
-        }}
-      />
-    </Box>
+      disableVirtualization={sessionDataTableProps.disableVirtualization}
+    />
   );
 }
 
