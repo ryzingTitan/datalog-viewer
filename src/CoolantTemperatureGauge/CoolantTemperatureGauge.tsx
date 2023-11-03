@@ -1,45 +1,18 @@
 import { ReactElement } from "react";
-import DataGaugesProps from "../DataGauges/DataGaugesProps";
-import ReactECharts from "echarts-for-react";
+import DashboardProps from "../Dashboard/DashboardProps";
+import Typography from "@mui/material/Typography";
 
 export default function CoolantTemperatureGauge(
-  dataGaugesProps: DataGaugesProps,
+  dashboardProps: DashboardProps,
 ): ReactElement {
   const coolantTemperature =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].data
+    dashboardProps.datalogs[dashboardProps.currentIndex].data
       .coolantTemperature;
 
-  const option = {
-    series: [
-      {
-        type: "gauge",
-        max: 250,
-        progress: {
-          show: true,
-        },
-        pointer: {
-          show: false,
-        },
-        detail: {
-          valueAnimation: true,
-          offsetCenter: [0, "-5%"],
-          fontSize: 30,
-          formatter: "{value} °F",
-          color: "inherit",
-        },
-        title: {
-          offsetCenter: [0, "90%"],
-          fontSize: 20,
-        },
-        data: [
-          {
-            name: "Coolant Temperature",
-            value: coolantTemperature,
-          },
-        ],
-      },
-    ],
-  };
-
-  return <ReactECharts option={option}></ReactECharts>;
+  return (
+    <>
+      <Typography variant="h4">Coolant Temperature</Typography>
+      <Typography variant="h5">{coolantTemperature} &deg;F</Typography>
+    </>
+  );
 }

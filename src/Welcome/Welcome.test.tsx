@@ -8,6 +8,6 @@ describe("Welcome Component", () => {
     expect(screen.getByRole("heading")).toHaveTextContent(
       /^Welcome to the Datalog Viewer!$/,
     );
-    expect(screen.getByTitle("QueryStatsIcon")).toBeInTheDocument();
+    expect(screen.getByTitle("Query Stats Icon")).toBeInTheDocument();
   });
 });

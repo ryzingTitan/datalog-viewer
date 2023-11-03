@@ -33,13 +33,13 @@ export default function TrackMapButtons(
   return (
     <Stack alignItems={"center"} justifyContent={"center"} margin={2}>
       <IconButton onClick={restartSession}>
-        <Replay titleAccess={"RestartButton"} />
+        <Replay titleAccess={"Restart Button"} />
       </IconButton>
       <IconButton onClick={pauseSession}>
-        <Pause titleAccess={"PauseButton"} />
+        <Pause titleAccess={"Pause Button"} />
       </IconButton>
       <IconButton onClick={playSession}>
-        <PlayArrow titleAccess={"PlayButton"} />
+        <PlayArrow titleAccess={"Play Button"} />
       </IconButton>
       <FormControl>
         <InputLabel>Speed</InputLabel>

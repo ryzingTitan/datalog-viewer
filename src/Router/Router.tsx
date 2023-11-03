@@ -33,7 +33,7 @@ const router = createBrowserRouter(
         <Route index element={<Welcome />} />
         <Route
           path="/sessions/:sessionId/summary"
-          element={<SessionDataTable />}
+          element={<SessionDataTable disableVirtualization={false} />}
           loader={async ({ params }) => datalogsLoader(params)}
         />
         <Route
