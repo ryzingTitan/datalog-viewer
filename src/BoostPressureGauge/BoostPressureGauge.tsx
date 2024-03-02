@@ -1,44 +1,17 @@
 import { ReactElement } from "react";
-import DataGaugesProps from "../DataGauges/DataGaugesProps";
-import ReactECharts from "echarts-for-react";
+import DashboardProps from "../Dashboard/DashboardProps";
+import Typography from "@mui/material/Typography";
 
 export default function BoostPressureGauge(
-  dataGaugesProps: DataGaugesProps
+  dashboardProps: DashboardProps,
 ): ReactElement {
   const boostPressure =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].boostPressure;
+    dashboardProps.datalogs[dashboardProps.currentIndex].data.boostPressure;
 
-  const option = {
-    series: [
-      {
-        type: "gauge",
-        max: 30,
-        progress: {
-          show: true,
-        },
-        pointer: {
-          show: false,
-        },
-        detail: {
-          valueAnimation: true,
-          offsetCenter: [0, "-5%"],
-          fontSize: 20,
-          formatter: "{value} PSI",
-          color: "inherit",
-        },
-        title: {
-          offsetCenter: [0, "90%"],
-          fontSize: 20,
-        },
-        data: [
-          {
-            name: "Boost Pressure",
-            value: boostPressure,
-          },
-        ],
-      },
-    ],
-  };
-
-  return <ReactECharts option={option}></ReactECharts>;
+  return (
+    <>
+      <Typography variant="h4">Boost Pressure</Typography>
+      <Typography variant="h5">{boostPressure} PSI</Typography>
+    </>
+  );
 }

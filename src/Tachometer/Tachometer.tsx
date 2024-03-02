@@ -1,45 +1,31 @@
 import { ReactElement } from "react";
-import DataGaugesProps from "../DataGauges/DataGaugesProps";
-import ReactECharts from "echarts-for-react";
+import DashboardProps from "../Dashboard/DashboardProps";
+import { LinearProgress } from "@mui/material";
+import Typography from "@mui/material/Typography";
+
+const MIN = 0;
+const MAX = 7000;
+const normalise = (value: number) => ((value - MIN) * 100) / (MAX - MIN);
 
 export default function Tachometer(
-  dataGaugesProps: DataGaugesProps
+  dashboardProps: DashboardProps,
 ): ReactElement {
   const engineRpm =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].engineRpm;
+    dashboardProps.datalogs[dashboardProps.currentIndex].data.engineRpm;
 
-  const option = {
-    series: [
-      {
-        type: "gauge",
-        max: 8,
-        splitNumber: 8,
-        progress: {
-          show: true,
-        },
-        pointer: {
-          show: false,
-        },
-        detail: {
-          valueAnimation: true,
-          offsetCenter: [0, "-5%"],
-          fontSize: 20,
-          formatter: "{value} RPM",
-          color: "inherit",
-        },
-        title: {
-          offsetCenter: [0, "90%"],
-          fontSize: 20,
-        },
-        data: [
-          {
-            name: "Tachometer",
-            value: engineRpm / 1000,
-          },
-        ],
-      },
-    ],
-  };
-
-  return <ReactECharts option={option}></ReactECharts>;
+  return (
+    <>
+      <Typography variant="h4" textAlign="center" margin={1}>
+        Tachometer
+      </Typography>
+      <LinearProgress
+        sx={{ height: 40, margin: 1 }}
+        variant="determinate"
+        value={normalise(engineRpm)}
+      />
+      <Typography variant="h5" textAlign="center">
+        {engineRpm} RPM
+      </Typography>
+    </>
+  );
 }

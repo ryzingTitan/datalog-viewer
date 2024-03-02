@@ -1,44 +1,33 @@
 import { ReactElement } from "react";
-import DataGaugesProps from "../DataGauges/DataGaugesProps";
-import ReactECharts from "echarts-for-react";
+import DashboardProps from "../Dashboard/DashboardProps";
+import Typography from "@mui/material/Typography";
+import { LinearProgress, linearProgressClasses, Stack } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+const VerticalLinearProgress = styled(LinearProgress)(() => ({
+  width: "16px",
+  height: "100px",
+}));
 
 export default function ThrottlePositionGauge(
-  dataGaugesProps: DataGaugesProps
+  dashboardProps: DashboardProps,
 ): ReactElement {
   const throttlePosition =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].throttlePosition;
+    dashboardProps.datalogs[dashboardProps.currentIndex].data.throttlePosition;
 
-  const option = {
-    series: [
-      {
-        type: "gauge",
-        max: 100,
-        progress: {
-          show: true,
-        },
-        pointer: {
-          show: false,
-        },
-        detail: {
-          valueAnimation: true,
-          offsetCenter: [0, "-5%"],
-          fontSize: 30,
-          formatter: "{value}%",
-          color: "inherit",
-        },
-        title: {
-          offsetCenter: [0, "90%"],
-          fontSize: 20,
-        },
-        data: [
-          {
-            name: "Throttle Position",
-            value: throttlePosition,
+  return (
+    <Stack alignItems="center">
+      <Typography variant="h4">Throttle Position</Typography>
+      <VerticalLinearProgress
+        variant="determinate"
+        value={throttlePosition}
+        sx={{
+          [`& .${linearProgressClasses.bar}`]: {
+            transform: `translateY(${100 - throttlePosition}%)!important`,
           },
-        ],
-      },
-    ],
-  };
-
-  return <ReactECharts option={option}></ReactECharts>;
+        }}
+      />
+      <Typography variant="h5">{throttlePosition}%</Typography>
+    </Stack>
+  );
 }

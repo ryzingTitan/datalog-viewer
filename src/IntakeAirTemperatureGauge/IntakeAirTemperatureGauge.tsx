@@ -1,44 +1,18 @@
-import { ReactElement } from "react";
-import DataGaugesProps from "../DataGauges/DataGaugesProps";
-import ReactECharts from "echarts-for-react";
+import { Fragment, ReactElement } from "react";
+import DashboardProps from "../Dashboard/DashboardProps";
+import Typography from "@mui/material/Typography";
 
 export default function IntakeAirTemperatureGauge(
-  dataGaugesProps: DataGaugesProps
+  dashboardProps: DashboardProps,
 ): ReactElement {
   const intakeAirTemperature =
-    dataGaugesProps.datalogs[dataGaugesProps.currentIndex].intakeAirTemperature;
+    dashboardProps.datalogs[dashboardProps.currentIndex].data
+      .intakeAirTemperature;
 
-  const option = {
-    series: [
-      {
-        type: "gauge",
-        max: 250,
-        progress: {
-          show: true,
-        },
-        pointer: {
-          show: false,
-        },
-        detail: {
-          valueAnimation: true,
-          offsetCenter: [0, "-5%"],
-          fontSize: 30,
-          formatter: "{value} °F",
-          color: "inherit",
-        },
-        title: {
-          offsetCenter: [0, "90%"],
-          fontSize: 20,
-        },
-        data: [
-          {
-            name: "Intake Air Temperature",
-            value: intakeAirTemperature,
-          },
-        ],
-      },
-    ],
-  };
-
-  return <ReactECharts option={option}></ReactECharts>;
+  return (
+    <>
+      <Typography variant="h4">Intake Air Temperature</Typography>
+      <Typography variant="h5">{intakeAirTemperature} &deg;F</Typography>
+    </>
+  );
 }

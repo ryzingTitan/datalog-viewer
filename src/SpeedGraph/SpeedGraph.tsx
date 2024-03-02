@@ -1,54 +1,53 @@
 import { ReactElement } from "react";
-import ReactECharts from "echarts-for-react";
-import { Box } from "@mui/system";
 import { format, parseISO } from "date-fns";
 import { useLoaderData } from "react-router-dom";
 import Datalog from "../Session/Datalog";
+import { LineChart } from "@mui/x-charts";
 
 export default function SpeedGraph(): ReactElement {
   const datalogs: Datalog[] = useLoaderData() as Datalog[];
 
-  const labels = Array<string>();
+  const labels = Array<Date>();
   const speedDataPoints = Array<number>();
   datalogs.forEach((datalog) => {
-    labels.push(format(parseISO(datalog.timestamp), "h:mm:ss a"));
-    speedDataPoints.push(datalog.speed);
+    labels.push(parseISO(datalog.timestamp));
+    speedDataPoints.push(datalog.data.speed);
   });
 
-  const option = {
-    animationDuration: 10000,
-    title: {
-      text: "Speed",
-      left: "center",
-    },
-    xAxis: {
-      data: labels,
-      name: "Timestamp",
-      nameLocation: "center",
-      nameGap: 30,
-    },
-    yAxis: {
-      min: "dataMin",
-      axisLabel: {
-        formatter: "{value} MPH",
-      },
-    },
-    series: [
-      {
-        data: speedDataPoints,
-        type: "line",
-        name: "Speed",
-      },
-    ],
-    tooltip: {
-      trigger: "axis",
-      valueFormatter: (value: string) => value + " MPH",
-    },
-  };
-
   return (
-    <Box sx={{ paddingTop: 2 }}>
-      <ReactECharts option={option}></ReactECharts>
-    </Box>
+    <LineChart
+      sx={{
+        "& .MuiMarkElement-root": {
+          display: "none",
+        },
+      }}
+      legend={{ direction: "column" }}
+      xAxis={[
+        {
+          data: labels,
+          label: "Timestamp",
+          scaleType: "time",
+          tickMinStep: 300000,
+          valueFormatter: (value: Date) => format(value, "h:mm a"),
+        },
+      ]}
+      yAxis={[
+        {
+          valueFormatter: (value: string) => `${value} MPH`,
+        },
+      ]}
+      series={[
+        {
+          data: speedDataPoints,
+          label: "Speed",
+          valueFormatter: (value: number) => `${value} MPH`,
+        },
+      ]}
+      tooltip={{
+        trigger: "axis",
+      }}
+      height={400}
+      margin={{ left: 60 }}
+    />
   );
 }

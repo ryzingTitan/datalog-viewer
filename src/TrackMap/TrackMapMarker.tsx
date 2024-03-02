@@ -5,7 +5,7 @@ import TrackMapMarkerProps from "./TrackMapMarkerProps";
 import CarIcon from "./car-solid.svg";
 
 export default function TrackMapMarker(
-  trackMapMarkerProps: TrackMapMarkerProps
+  trackMapMarkerProps: TrackMapMarkerProps,
 ): ReactElement {
   const currentLatitude =
     trackMapMarkerProps.coordinates[trackMapMarkerProps.currentIndex][0];

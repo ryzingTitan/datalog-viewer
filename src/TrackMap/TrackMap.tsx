@@ -3,11 +3,11 @@ import { Box } from "@mui/system";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import TrackMapMarker from "./TrackMapMarker";
-import DataGauges from "../DataGauges/DataGauges";
 import { useLoaderData } from "react-router-dom";
 import Datalog from "../Session/Datalog";
 import TrackMapButtons from "../TrackMapButtons/TrackMapButtons";
 import { Stack } from "@mui/material";
+import Dashboard from "../Dashboard/Dashboard";
 
 export default function TrackMap(): ReactElement {
   const datalogs: Datalog[] = useLoaderData() as Datalog[];
@@ -20,9 +20,11 @@ export default function TrackMap(): ReactElement {
   const intervalTime = 1000;
 
   const coordinates = Array<[number, number]>();
+  const trackLongitude = datalogs.at(0)?.trackInfo.longitude;
+  const trackLatitude = datalogs.at(0)?.trackInfo.latitude;
 
   datalogs.forEach((datalog) => {
-    coordinates.push([datalog.latitude, datalog.longitude]);
+    coordinates.push([datalog.data.latitude, datalog.data.longitude]);
   });
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function TrackMap(): ReactElement {
       <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
         <MapContainer
           style={{ height: 420, width: 900 }}
-          center={[42.4086, -86.1374]}
+          center={[trackLatitude!, trackLongitude!]}
           zoom={16}
           scrollWheelZoom={false}
         >
@@ -69,7 +71,7 @@ export default function TrackMap(): ReactElement {
           setCurrentIndex={setCurrentIndex}
         ></TrackMapButtons>
       </Stack>
-      <DataGauges datalogs={datalogs} currentIndex={currentIndex}></DataGauges>
+      <Dashboard datalogs={datalogs} currentIndex={currentIndex} />
     </Box>
   );
 }

@@ -1,15 +1,15 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { ReactElement } from "react";
 
 export default function Error(): ReactElement {
   return (
-    <Stack alignItems={"center"}>
-      <Typography variant="h2" gutterBottom>
+    <>
+      <Typography variant="h2" gutterBottom textAlign="center">
         An unexpected error has occurred.
       </Typography>
-      <Typography variant="h4">
+      <Typography variant="h4" textAlign="center">
         Please ensure a valid session has been selected and reload the page.
       </Typography>
-    </Stack>
+    </>
   );
 }

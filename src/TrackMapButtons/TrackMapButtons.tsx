@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 export default function TrackMapButtons(
-  trackMapButtonsProps: TrackMapButtonsProps
+  trackMapButtonsProps: TrackMapButtonsProps,
 ): ReactElement {
   function playSession() {
     trackMapButtonsProps.setIsPlaying(true);
@@ -33,13 +33,13 @@ export default function TrackMapButtons(
   return (
     <Stack alignItems={"center"} justifyContent={"center"} margin={2}>
       <IconButton onClick={restartSession}>
-        <Replay />
+        <Replay titleAccess={"Restart Button"} />
       </IconButton>
       <IconButton onClick={pauseSession}>
-        <Pause />
+        <Pause titleAccess={"Pause Button"} />
       </IconButton>
       <IconButton onClick={playSession}>
-        <PlayArrow />
+        <PlayArrow titleAccess={"Play Button"} />
       </IconButton>
       <FormControl>
         <InputLabel>Speed</InputLabel>
