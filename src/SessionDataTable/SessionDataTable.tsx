@@ -6,8 +6,8 @@ import {
   GridValueGetterParams,
 } from "@mui/x-data-grid";
 import Datalog from "../Session/Datalog";
-import parseISO from "date-fns/parseISO";
-import format from "date-fns/format";
+import { parseISO } from "date-fns/parseISO";
+import { format } from "date-fns/format";
 import { ReactElement } from "react";
 import { useLoaderData } from "react-router-dom";
 import SessionDataTableProps from "./SessionDataTableProps";

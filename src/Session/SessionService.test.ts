@@ -30,7 +30,7 @@ describe("Session Service", () => {
       )
       .reply(200, JSON.stringify(Array.of(firstDatalog)));
 
-    const response = await sessionService.getDatalogsBySessionId(sessionId);
+    const response = await sessionService.getDatalogsBySessionId(sessionId, "");
 
     expect(response.status).toBe(200);
     expect(response.data).toStrictEqual(Array.of(firstDatalog));
@@ -59,7 +59,7 @@ describe("Session Service", () => {
       )
       .reply(200, JSON.stringify(Array.of(firstDatalog, secondDatalog)));
 
-    const response = await sessionService.getDatalogsBySessionId(sessionId);
+    const response = await sessionService.getDatalogsBySessionId(sessionId, "");
 
     expect(response.status).toBe(200);
     expect(response.data).toStrictEqual(Array.of(firstDatalog, secondDatalog));
@@ -79,7 +79,7 @@ describe("Session Service", () => {
       .reply(500, null);
 
     try {
-      await sessionService.getDatalogsBySessionId(sessionId);
+      await sessionService.getDatalogsBySessionId(sessionId, "");
     } catch (error: any) {
       errorResponse = error as AxiosError;
     }
