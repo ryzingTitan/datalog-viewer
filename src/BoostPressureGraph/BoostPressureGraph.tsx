@@ -21,7 +21,11 @@ export default function BoostPressureGraph(): ReactElement {
           display: "none",
         },
       }}
-      legend={{ direction: "column" }}
+      slotProps={{
+        legend: {
+          direction: "column",
+        },
+      }}
       xAxis={[
         {
           data: labels,
