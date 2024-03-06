@@ -8,6 +8,7 @@ export default class SessionMetadataService {
 
   public getAllSessionMetadata(
     email: string,
+    accessToken: string,
   ): Promise<AxiosResponse<Array<SessionMetadata>>> {
     let encodedEmail = encodeURIComponent(email);
 
@@ -15,7 +16,7 @@ export default class SessionMetadataService {
       `/sessions/metadata?username=${encodedEmail}`,
       {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       },
     );

@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import SessionDataTable from "./SessionDataTable";
-import { addMinutes } from "date-fns";
+
 describe("Session Data Table", () => {
   it("should render session data table", async () => {
     let routes = Array<RouteObject>();

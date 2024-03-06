@@ -13,10 +13,11 @@ export default class SessionService {
 
   public getDatalogsBySessionId(
     sessionId: string,
+    accessToken: string,
   ): Promise<AxiosResponse<Array<Datalog>>> {
     return this.cache.get<Array<Datalog>>(`/sessions/${sessionId}/datalogs`, {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
   }

@@ -21,7 +21,11 @@ export default function SpeedGraph(): ReactElement {
           display: "none",
         },
       }}
-      legend={{ direction: "column" }}
+      slotProps={{
+        legend: {
+          direction: "column",
+        },
+      }}
       xAxis={[
         {
           data: labels,
