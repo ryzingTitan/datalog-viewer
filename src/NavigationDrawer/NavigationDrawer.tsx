@@ -18,6 +18,7 @@ import MapIcon from "@mui/icons-material/Map";
 import { styled } from "@mui/material/styles";
 import TurbochargerIcon from "./TurbochargerIcon";
 import TachometerIcon from "./TachometerIcon";
+import { Upload } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -143,6 +144,16 @@ export default function NavigationDrawer(
                 <MapIcon />
               </ListItemIcon>
               <ListItemText primary="Map" />
+            </ListItemButton>
+          </Link>
+        </ListItem>
+        <ListItem key="Administration" disablePadding>
+          <Link to={"/administration"} style={{ textDecoration: "none" }}>
+            <ListItemButton sx={{ color: "#fff" }}>
+              <ListItemIcon>
+                <Upload />
+              </ListItemIcon>
+              <ListItemText primary="Administration" />
             </ListItemButton>
           </Link>
         </ListItem>
