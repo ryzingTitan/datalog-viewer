@@ -34,7 +34,7 @@ export default function SessionMetadataSelect(
 ): ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
 
   const [sessionMetadataList, setSessionMetadataList] =
     useState(Array<SessionMetadata>());
@@ -45,7 +45,7 @@ export default function SessionMetadataSelect(
         const accessToken = await getAccessTokenSilently();
         const sessionMetadataService = new SessionMetadataService();
         const response = await sessionMetadataService.getAllSessionMetadata(
-          sessionMetadataSelectProps.email,
+          user?.email ?? "",
           accessToken,
         );
         setSessionMetadataList([...response.data].sort(sortByStartDateTimeAsc));
@@ -53,7 +53,7 @@ export default function SessionMetadataSelect(
 
       getAllSessionMetadata();
     },
-    [sessionMetadataSelectProps.email, getAccessTokenSilently],
+    [user, getAccessTokenSilently],
   );
 
   const handleChange = (event: SelectChangeEvent) => {
