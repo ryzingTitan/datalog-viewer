@@ -20,6 +20,7 @@ import Track from "./Track";
 import { useLoaderData } from "react-router-dom";
 import TrackService from "./TrackService";
 import { useAuth0 } from "@auth0/auth0-react";
+import TrackPreview from "../TrackPreview/TrackPreview";
 
 let initialRows: GridRowsProp = [];
 const trackService = new TrackService();
@@ -55,15 +56,15 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
-export default function TrackAdministration(): ReactElement {
+export default function TrackEditor(): ReactElement {
   const tracks: Track[] = useLoaderData() as Track[];
 
-  initialRows = tracks.map((x) => {
+  initialRows = tracks.map((track) => {
     return {
-      id: x.id,
-      name: x.name,
-      longitude: x.longitude,
-      latitude: x.latitude,
+      id: track.id,
+      name: track.name,
+      longitude: track.longitude,
+      latitude: track.latitude,
       isNew: false,
     };
   });
@@ -158,6 +159,18 @@ export default function TrackAdministration(): ReactElement {
       editable: true,
       type: "number",
       flex: 1,
+    },
+    {
+      field: "trackPreview",
+      headerName: "Track Preview",
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params) => (
+        <TrackPreview
+          longitude={params.row.longitude}
+          latitude={params.row.latitude}
+        />
+      ),
     },
     {
       field: "actions",

@@ -17,8 +17,8 @@ import SessionService from "../Session/SessionService";
 import Welcome from "../Welcome/Welcome";
 import Error from "../Error/Error";
 import { useAuth0 } from "@auth0/auth0-react";
-import TrackAdministration from "../TrackAdministration/TrackAdministration";
-import TrackService from "../TrackAdministration/TrackService";
+import TrackEditor from "../TrackEditor/TrackEditor";
+import TrackService from "../TrackEditor/TrackService";
 
 const sessionService = new SessionService();
 const trackService = new TrackService();
@@ -36,7 +36,7 @@ function Router(): ReactElement {
     return response.data;
   };
 
-  const administrationLoader = async function () {
+  const tracksLoader = async function () {
     const accessToken = await getAccessTokenSilently();
     const response = await trackService.getAll(accessToken);
     return response.data;
@@ -78,9 +78,9 @@ function Router(): ReactElement {
             loader={async ({ params }) => datalogsLoader(params)}
           />
           <Route
-            path={"/administration"}
-            element={<TrackAdministration />}
-            loader={async () => administrationLoader()}
+            path={"/track-editor"}
+            element={<TrackEditor />}
+            loader={async () => tracksLoader()}
           />
         </Route>
       </Route>,
