@@ -18,7 +18,7 @@ import MapIcon from "@mui/icons-material/Map";
 import { styled } from "@mui/material/styles";
 import TurbochargerIcon from "./TurbochargerIcon";
 import TachometerIcon from "./TachometerIcon";
-import { EditRoad } from "@mui/icons-material";
+import { EditRoad, UploadFile } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -154,6 +154,16 @@ export default function NavigationDrawer(
                 <EditRoad />
               </ListItemIcon>
               <ListItemText primary="Track Editor" />
+            </ListItemButton>
+          </Link>
+        </ListItem>
+        <ListItem key="SessionUpload" disablePadding>
+          <Link to={"/session-upload"} style={{ textDecoration: "none" }}>
+            <ListItemButton sx={{ color: "#fff" }}>
+              <ListItemIcon>
+                <UploadFile />
+              </ListItemIcon>
+              <ListItemText primary="Session Upload" />
             </ListItemButton>
           </Link>
         </ListItem>
