@@ -10,7 +10,17 @@ import {
 } from "@mui/material";
 import UploadDataSelectProps from "./UploadDataSelectProps";
 import SessionMetadata from "../SessionMetadataSelect/SessionMetadata";
-import { format, parseISO } from "date-fns";
+import { compareAsc, format, parseISO } from "date-fns";
+
+function sortByStartDateTimeAsc(
+  firstSessionMetadata: SessionMetadata,
+  secondSessionMetadata: SessionMetadata,
+): number {
+  const firstDate = parseISO(firstSessionMetadata.startTime);
+  const secondDate = parseISO(secondSessionMetadata.startTime);
+
+  return compareAsc(firstDate, secondDate);
+}
 
 const formatDateTime = (dateTime: string): string => {
   const date = parseISO(dateTime);
@@ -49,8 +59,9 @@ export default function UploadDataSelect(
           autoWidth
           data-cy="sessionMetadataSelect"
         >
-          {uploadDataSelectProps.sessionMetadataList.map(
-            (sessionMetadata: SessionMetadata) => {
+          {uploadDataSelectProps.sessionMetadataList
+            .sort(sortByStartDateTimeAsc)
+            .map((sessionMetadata: SessionMetadata) => {
               return (
                 <MenuItem
                   key={sessionMetadata.sessionId}
@@ -60,8 +71,7 @@ export default function UploadDataSelect(
                   {formatDateTime(sessionMetadata.endTime)}
                 </MenuItem>
               );
-            },
-          )}
+            })}
         </Select>
       </FormControl>
       <Input type="file" onChange={handleFileChange} />

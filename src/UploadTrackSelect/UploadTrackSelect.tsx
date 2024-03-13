@@ -11,6 +11,12 @@ import {
 import UploadTrackSelectProps from "./UploadTrackSelectProps";
 import Track from "../TrackEditor/Track";
 
+function sortByTrackName(firstTrack: Track, secondTrack: Track): number {
+  return firstTrack.name.toLowerCase() < secondTrack.name.toLowerCase()
+    ? -1
+    : 1;
+}
+
 export default function UploadTrackSelect(
   uploadTrackSelectProps: UploadTrackSelectProps,
 ): ReactElement {
@@ -34,13 +40,15 @@ export default function UploadTrackSelect(
           label="Tracks"
           onChange={handleChange}
         >
-          {uploadTrackSelectProps.tracks.map((track: Track) => {
-            return (
-              <MenuItem key={track.id} value={track.id}>
-                {track.name}
-              </MenuItem>
-            );
-          })}
+          {uploadTrackSelectProps.tracks
+            .sort(sortByTrackName)
+            .map((track: Track) => {
+              return (
+                <MenuItem key={track.id} value={track.id}>
+                  {track.name}
+                </MenuItem>
+              );
+            })}
         </Select>
       </FormControl>
       <TrackPreview
