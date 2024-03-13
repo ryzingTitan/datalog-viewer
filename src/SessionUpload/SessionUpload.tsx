@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useState } from "react";
+import { ReactElement, ReactNode, SyntheticEvent, useState } from "react";
 import {
   Step,
   StepLabel,
@@ -8,6 +8,8 @@ import {
   Button,
   Stack,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import UploadActionSelect from "../UploadActionSelect/UploadActionSelect";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -17,6 +19,7 @@ import UploadTrackSelect from "../UploadTrackSelect/UploadTrackSelect";
 import UploadDataSelect from "../UploadDataSelect/UploadDataSelect";
 import SessionUploadData from "./SessionUploadData";
 import SessionService from "../Session/SessionService";
+import { AxiosError, AxiosResponse } from "axios";
 
 const sessionService = new SessionService();
 
@@ -28,6 +31,17 @@ export default function SessionUpload(): ReactElement {
   const [selectedSessionId, setSelectedSessionId] = useState<string>();
   const [selectedFile, setSelectedFile] = useState<File>();
   const { user, getAccessTokenSilently } = useAuth0();
+  const [responseStatus, setResponseStatus] = useState<number>();
+  const [open, setOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<string>();
+
+  const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -38,24 +52,56 @@ export default function SessionUpload(): ReactElement {
   };
 
   const handleUpload = async () => {
+    setActiveStep(0);
     const accessToken = await getAccessTokenSilently();
+    let response: AxiosResponse;
+    let statusCode: number;
 
-    if (uploadType === "update") {
-      await sessionService.updateSession(
-        selectedSessionId!!,
-        selectedTrack!!,
-        user!!,
-        selectedFile!!,
-        accessToken,
-      );
-    } else {
-      await sessionService.createSession(
-        selectedTrack!!,
-        user!!,
-        selectedFile!!,
-        accessToken,
-      );
+    try {
+      if (uploadType === "update") {
+        response = await sessionService.updateSession(
+          selectedSessionId!!,
+          selectedTrack!!,
+          user!!,
+          selectedFile!!,
+          accessToken,
+        );
+      } else {
+        response = await sessionService.createSession(
+          selectedTrack!!,
+          user!!,
+          selectedFile!!,
+          accessToken,
+        );
+      }
+
+      statusCode = response.status;
+    } catch (error: any) {
+      const axiosError = error as AxiosError;
+      statusCode = axiosError?.response?.status ?? 500;
     }
+
+    switch (statusCode) {
+      case 200: {
+        setAlertMessage("File uploaded successfully");
+        break;
+      }
+      case 409: {
+        setAlertMessage("Session already exists");
+        break;
+      }
+      case 410: {
+        setAlertMessage("Session does not exist");
+        break;
+      }
+      default: {
+        setAlertMessage("File failed to upload");
+        break;
+      }
+    }
+
+    setOpen(true);
+    setResponseStatus(statusCode);
   };
 
   const steps = [
@@ -158,21 +204,38 @@ export default function SessionUpload(): ReactElement {
   ];
 
   return (
-    <Box sx={{ width: "50%" }}>
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((step, index) => {
-          const stepProps: { completed?: boolean } = {};
-          const labelProps: {
-            optional?: ReactNode;
-          } = {};
-          return (
-            <Step key={step.label} {...stepProps}>
-              <StepLabel {...labelProps}>{step.label}</StepLabel>
-              <StepContent>{step.content}</StepContent>
-            </Step>
-          );
-        })}
-      </Stepper>
-    </Box>
+    <>
+      <Box sx={{ width: "50%" }}>
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {steps.map((step, index) => {
+            const stepProps: { completed?: boolean } = {};
+            const labelProps: {
+              optional?: ReactNode;
+            } = {};
+            return (
+              <Step key={step.label} {...stepProps}>
+                <StepLabel {...labelProps}>{step.label}</StepLabel>
+                <StepContent>{step.content}</StepContent>
+              </Step>
+            );
+          })}
+        </Stepper>
+      </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity={responseStatus === 200 ? "success" : "error"}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }

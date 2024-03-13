@@ -1,6 +1,6 @@
 {
   "name": "datalog-viewer",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "2.2.4",
