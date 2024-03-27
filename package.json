@@ -1,6 +1,6 @@
 {
   "name": "datalog-viewer",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "2.2.4",
@@ -8,7 +8,7 @@
     "@emotion/styled": "11.11.0",
     "@mui/icons-material": "5.15.11",
     "@mui/material": "5.15.11",
-    "@mui/x-charts": "^6.19.5",
+    "@mui/x-charts": "6.19.8",
     "@mui/x-data-grid": "6.19.5",
     "@react-oauth/google": "0.12.1",
     "@types/node": "20.11.24",
