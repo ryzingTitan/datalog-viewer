@@ -11,6 +11,7 @@ import {
   GridRowId,
   GridRowModel,
   GridRowEditStopReasons,
+  GridToolbarProps,
 } from "@mui/x-data-grid";
 
 import { ReactElement, useState } from "react";
@@ -25,23 +26,16 @@ import TrackPreview from "../TrackPreview/TrackPreview";
 let initialRows: GridRowsProp = [];
 const trackService = new TrackService();
 
-interface EditToolbarProps {
-  setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
-  setRowModesModel: (
-    newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
-  ) => void;
-}
-
-function EditToolbar(props: EditToolbarProps) {
+function EditToolbar(props: GridToolbarProps) {
   const { setRows, setRowModesModel } = props;
 
   const handleClick = () => {
     const id = crypto.randomUUID();
-    setRows((oldRows) => [
+    setRows((oldRows: GridRowsProp) => [
       ...oldRows,
       { id, name: "", latitude: null, longitude: null, isNew: true },
     ]);
-    setRowModesModel((oldModel) => ({
+    setRowModesModel((oldModel: GridRowModesModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
     }));

@@ -46,12 +46,12 @@ export default function TemperatureGraph(): ReactElement {
         {
           data: intakeTemperatureDataPoints,
           label: "Intake Air Temperature",
-          valueFormatter: (value: number) => `${value} \u2109`,
+          valueFormatter: (value: number | null) => `${value} \u2109`,
         },
         {
           data: coolantTemperatureDataPoints,
           label: "Coolant Temperature",
-          valueFormatter: (value: number) => `${value} \u2109`,
+          valueFormatter: (value: number | null) => `${value} \u2109`,
         },
       ]}
       tooltip={{

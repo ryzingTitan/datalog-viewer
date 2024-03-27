@@ -44,7 +44,7 @@ export default function BoostPressureGraph(): ReactElement {
         {
           data: boostPressureDataPoints,
           label: "Boost Pressure",
-          valueFormatter: (value: number) => `${value} PSI`,
+          valueFormatter: (value: number | null) => `${value} PSI`,
         },
       ]}
       tooltip={{

@@ -51,13 +51,13 @@ export default function ThrottleGraph(): ReactElement {
         {
           data: engineRpmDataPoints,
           label: "Engine RPM",
-          valueFormatter: (value: number) => `${value} RPM`,
+          valueFormatter: (value: number | null) => `${value} RPM`,
           yAxisKey: "engineRpm",
         },
         {
           data: throttlePositionDataPoints,
           label: "Throttle Position",
-          valueFormatter: (value: number) => `${value}%`,
+          valueFormatter: (value: number | null) => `${value}%`,
           yAxisKey: "throttlePosition",
         },
       ]}

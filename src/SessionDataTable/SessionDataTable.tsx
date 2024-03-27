@@ -1,10 +1,4 @@
-import {
-  DataGrid,
-  GridColDef,
-  GridToolbar,
-  GridValueFormatterParams,
-  GridValueGetterParams,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import Datalog from "../Session/Datalog";
 import { parseISO } from "date-fns/parseISO";
 import { format } from "date-fns/format";
@@ -39,8 +33,8 @@ const columns: GridColDef[] = [
     flex: 1,
     headerAlign: "center",
     align: "center",
-    valueFormatter: (params: GridValueFormatterParams<string>) => {
-      const date = parseISO(params.value);
+    valueFormatter: (value: string) => {
+      const date = parseISO(value);
       return format(date, "MM-dd-yyyy h:mm:ss a");
     },
   },
@@ -50,8 +44,7 @@ const columns: GridColDef[] = [
     headerAlign: "center",
     align: "center",
     flex: 0.75,
-    valueGetter: (params: GridValueGetterParams<Datalog>) =>
-      params.row.data.intakeAirTemperature,
+    valueGetter: (value, row: Datalog) => row.data.intakeAirTemperature,
   },
   {
     field: "boostPressure",
@@ -59,8 +52,7 @@ const columns: GridColDef[] = [
     headerAlign: "center",
     align: "center",
     flex: 0.75,
-    valueGetter: (params: GridValueGetterParams<Datalog>) =>
-      params.row.data.boostPressure,
+    valueGetter: (value, row: Datalog) => row.data.boostPressure,
   },
   {
     field: "coolantTemperature",
@@ -68,8 +60,7 @@ const columns: GridColDef[] = [
     headerAlign: "center",
     align: "center",
     flex: 0.75,
-    valueGetter: (params: GridValueGetterParams<Datalog>) =>
-      params.row.data.coolantTemperature,
+    valueGetter: (value, row: Datalog) => row.data.coolantTemperature,
   },
   {
     field: "engineRpm",
@@ -77,8 +68,7 @@ const columns: GridColDef[] = [
     headerAlign: "center",
     align: "center",
     flex: 0.75,
-    valueGetter: (params: GridValueGetterParams<Datalog>) =>
-      params.row.data.engineRpm,
+    valueGetter: (value, row: Datalog) => row.data.engineRpm,
   },
   {
     field: "speed",
@@ -86,8 +76,7 @@ const columns: GridColDef[] = [
     headerAlign: "center",
     align: "center",
     flex: 0.5,
-    valueGetter: (params: GridValueGetterParams<Datalog>) =>
-      params.row.data.speed,
+    valueGetter: (value, row: Datalog) => row.data.speed,
   },
   {
     field: "throttlePosition",
@@ -95,8 +84,7 @@ const columns: GridColDef[] = [
     headerAlign: "center",
     align: "center",
     flex: 0.75,
-    valueGetter: (params: GridValueGetterParams<Datalog>) =>
-      params.row.data.throttlePosition,
+    valueGetter: (value, row: Datalog) => row.data.throttlePosition,
   },
   {
     field: "airFuelRatio",
@@ -104,7 +92,6 @@ const columns: GridColDef[] = [
     headerAlign: "center",
     align: "center",
     flex: 0.5,
-    valueGetter: (params: GridValueGetterParams<Datalog>) =>
-      params.row.data.airFuelRatio,
+    valueGetter: (value, row: Datalog) => row.data.airFuelRatio,
   },
 ];

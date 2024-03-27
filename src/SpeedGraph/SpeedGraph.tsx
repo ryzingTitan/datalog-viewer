@@ -44,7 +44,7 @@ export default function SpeedGraph(): ReactElement {
         {
           data: speedDataPoints,
           label: "Speed",
-          valueFormatter: (value: number) => `${value} MPH`,
+          valueFormatter: (value: number | null) => `${value} MPH`,
         },
       ]}
       tooltip={{
