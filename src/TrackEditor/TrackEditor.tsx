@@ -169,6 +169,7 @@ export default function TrackEditor(): ReactElement {
         <TrackPreview
           longitude={params.row.longitude}
           latitude={params.row.latitude}
+          iconSize={"medium"}
         />
       ),
     },

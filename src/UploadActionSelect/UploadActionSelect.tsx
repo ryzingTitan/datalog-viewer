@@ -11,7 +11,7 @@ export default function UploadActionSelect(
   uploadActionSelectProps: UploadActionSelectProps,
 ): ReactElement {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    uploadActionSelectProps.setUploadType(
+    uploadActionSelectProps.setUploadAction(
       (event.target as HTMLInputElement).value,
     );
   };
@@ -21,7 +21,7 @@ export default function UploadActionSelect(
       <RadioGroup
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
-        value={uploadActionSelectProps.uploadType}
+        value={uploadActionSelectProps.uploadAction}
         onChange={handleChange}
       >
         <FormControlLabel value="create" control={<Radio />} label="Create" />

@@ -39,11 +39,13 @@ export default function UploadDataSelect(
     uploadDataSelectProps.setSelectedFile(htmlInputElement.files?.item(0));
   };
 
-  return uploadDataSelectProps.uploadType === "create" ? (
-    <Input type="file" onChange={handleFileChange} />
+  return uploadDataSelectProps.uploadAction === "create" ? (
+    <Box>
+      <Input type="file" onChange={handleFileChange} fullWidth />
+    </Box>
   ) : (
-    <Box margin={2} textAlign="center">
-      <FormControl sx={{ minWidth: 200 }}>
+    <Box>
+      <FormControl fullWidth>
         <InputLabel
           data-cy="sessionMetadataSelectLabel"
           id="session-metadata-select-label"
@@ -56,7 +58,6 @@ export default function UploadDataSelect(
           value={uploadDataSelectProps.selectedSessionId}
           label="Session List"
           onChange={handleSessionChange}
-          autoWidth
           data-cy="sessionMetadataSelect"
         >
           {uploadDataSelectProps.sessionMetadataList
@@ -74,7 +75,12 @@ export default function UploadDataSelect(
             })}
         </Select>
       </FormControl>
-      <Input type="file" onChange={handleFileChange} />
+      <Input
+        type="file"
+        onChange={handleFileChange}
+        fullWidth
+        sx={{ paddingTop: 2 }}
+      />
     </Box>
   );
 }

@@ -15,7 +15,10 @@ export default function TrackPreview(
   return (
     <>
       <IconButton onClick={handleOpen}>
-        <Preview titleAccess={"Preview"} />
+        <Preview
+          titleAccess={"Preview"}
+          fontSize={trackPreviewProps.iconSize}
+        />
       </IconButton>
       <Modal open={open} onClose={handleClose}>
         <MapContainer

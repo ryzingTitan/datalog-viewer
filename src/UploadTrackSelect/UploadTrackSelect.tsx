@@ -54,6 +54,7 @@ export default function UploadTrackSelect(
       <TrackPreview
         latitude={uploadTrackSelectProps.selectedTrack?.latitude ?? 0}
         longitude={uploadTrackSelectProps.selectedTrack?.longitude ?? 0}
+        iconSize={"large"}
       />
     </Stack>
   );

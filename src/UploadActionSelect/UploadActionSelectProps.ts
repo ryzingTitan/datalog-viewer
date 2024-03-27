@@ -1,4 +1,4 @@
 export default interface UploadActionSelectProps {
-  uploadType: string;
-  setUploadType: Function;
+  uploadAction: string;
+  setUploadAction: Function;
 }

@@ -1,7 +1,7 @@
 import SessionMetadata from "../SessionMetadataSelect/SessionMetadata";
 
 export default interface UploadDataSelectProps {
-  uploadType: string;
+  uploadAction: string;
   sessionMetadataList: Array<SessionMetadata>;
   selectedSessionId: string;
   setSelectedSessionId: Function;

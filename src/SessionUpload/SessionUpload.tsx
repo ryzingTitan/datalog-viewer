@@ -7,7 +7,6 @@ import {
   StepContent,
   Button,
   Stack,
-  Typography,
   Snackbar,
   Alert,
 } from "@mui/material";
@@ -20,13 +19,14 @@ import UploadDataSelect from "../UploadDataSelect/UploadDataSelect";
 import SessionUploadData from "./SessionUploadData";
 import SessionService from "../Session/SessionService";
 import { AxiosError, AxiosResponse } from "axios";
+import UploadReview from "../UploadReview/UploadReview";
 
 const sessionService = new SessionService();
 
 export default function SessionUpload(): ReactElement {
   const sessionUploadData = useLoaderData() as SessionUploadData;
   const [activeStep, setActiveStep] = useState(0);
-  const [uploadType, setUploadType] = useState("create");
+  const [uploadAction, setUploadAction] = useState("create");
   const [selectedTrack, setSelectedTrack] = useState<Track>();
   const [selectedSessionId, setSelectedSessionId] = useState<string>();
   const [selectedFile, setSelectedFile] = useState<File>();
@@ -58,7 +58,7 @@ export default function SessionUpload(): ReactElement {
     let statusCode: number;
 
     try {
-      if (uploadType === "update") {
+      if (uploadAction === "update") {
         response = await sessionService.updateSession(
           selectedSessionId!!,
           selectedTrack!!,
@@ -110,8 +110,8 @@ export default function SessionUpload(): ReactElement {
       content: (
         <>
           <UploadActionSelect
-            uploadType={uploadType}
-            setUploadType={setUploadType}
+            uploadAction={uploadAction}
+            setUploadAction={setUploadAction}
           />
           <Stack direction="row">
             <Button
@@ -130,7 +130,7 @@ export default function SessionUpload(): ReactElement {
       content: (
         <>
           <UploadDataSelect
-            uploadType={uploadType}
+            uploadAction={uploadAction}
             sessionMetadataList={sessionUploadData.sessionMetadataList}
             selectedSessionId={selectedSessionId ?? ""}
             setSelectedSessionId={setSelectedSessionId}
@@ -179,13 +179,12 @@ export default function SessionUpload(): ReactElement {
       label: "Upload Session",
       content: (
         <Stack>
-          <Typography>Upload Type: {uploadType.toUpperCase()}</Typography>
-          <Typography>
-            Session Id: {selectedSessionId ?? "New Session"}
-          </Typography>
-          <Typography>File Name: {selectedFile?.name}</Typography>
-          <Typography>Track Name: {selectedTrack?.name}</Typography>
-          <Typography>User Email: {user?.email}</Typography>
+          <UploadReview
+            uploadAction={uploadAction}
+            selectedSessionId={selectedSessionId}
+            selectedFile={selectedFile}
+            selectedTrack={selectedTrack}
+          />
           <Stack direction="row">
             <Button
               variant="contained"
