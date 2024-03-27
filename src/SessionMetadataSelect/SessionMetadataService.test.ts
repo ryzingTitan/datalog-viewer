@@ -24,8 +24,10 @@ describe("Session Metadata Service", () => {
       )
       .reply(200, JSON.stringify(Array.of(firstSessionMetadata)));
 
-    const response =
-      await sessionMetadataService.getAllSessionMetadata("test@test.com");
+    const response = await sessionMetadataService.getAllSessionMetadata(
+      "test@test.com",
+      "",
+    );
 
     expect(response.status).toBe(200);
     expect(response.data).toStrictEqual(Array.of(firstSessionMetadata));
@@ -55,8 +57,10 @@ describe("Session Metadata Service", () => {
         JSON.stringify(Array.of(firstSessionMetadata, secondSessionMetadata)),
       );
 
-    const response =
-      await sessionMetadataService.getAllSessionMetadata("test@test.com");
+    const response = await sessionMetadataService.getAllSessionMetadata(
+      "test@test.com",
+      "",
+    );
 
     expect(response.status).toBe(200);
     expect(response.data).toStrictEqual(
@@ -78,7 +82,7 @@ describe("Session Metadata Service", () => {
       .reply(500, null);
 
     try {
-      await sessionMetadataService.getAllSessionMetadata("test@test.com");
+      await sessionMetadataService.getAllSessionMetadata("test@test.com", "");
     } catch (error: any) {
       errorResponse = error as AxiosError;
     }

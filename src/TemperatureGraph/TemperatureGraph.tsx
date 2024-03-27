@@ -23,7 +23,11 @@ export default function TemperatureGraph(): ReactElement {
           display: "none",
         },
       }}
-      legend={{ direction: "column" }}
+      slotProps={{
+        legend: {
+          direction: "row",
+        },
+      }}
       xAxis={[
         {
           data: labels,

@@ -12,6 +12,7 @@ import SessionMetadataSelectProps from "./SessionMetadataSelectProps";
 import { compareAsc, format, parseISO } from "date-fns";
 import SessionMetadataService from "./SessionMetadataService";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function sortByStartDateTimeAsc(
   firstSessionMetadata: SessionMetadata,
@@ -33,24 +34,26 @@ export default function SessionMetadataSelect(
 ): ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
+  const { getAccessTokenSilently, user } = useAuth0();
 
-  const [sessionMetadataList, setSessionMetadataList] = useState(
-    Array<SessionMetadata>(),
-  );
+  const [sessionMetadataList, setSessionMetadataList] =
+    useState(Array<SessionMetadata>());
 
   useEffect(
     function () {
       const getAllSessionMetadata = async () => {
+        const accessToken = await getAccessTokenSilently();
         const sessionMetadataService = new SessionMetadataService();
         const response = await sessionMetadataService.getAllSessionMetadata(
-          sessionMetadataSelectProps.email,
+          user?.email ?? "",
+          accessToken,
         );
         setSessionMetadataList([...response.data].sort(sortByStartDateTimeAsc));
       };
 
       getAllSessionMetadata();
     },
-    [sessionMetadataSelectProps.email],
+    [user, getAccessTokenSilently],
   );
 
   const handleChange = (event: SelectChangeEvent) => {

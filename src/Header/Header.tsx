@@ -1,13 +1,13 @@
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import SessionMetadataSelect from "../SessionMetadataSelect/SessionMetadataSelect";
 import { styled } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import HeaderProps from "./HeaderProps";
 import { Stack } from "@mui/material";
-import Login from "../Login/Login";
+import AuthenticationHeader from "../AuthenticationHeader/AuthenticationHeader";
 
 const drawerWidth = 240;
 
@@ -33,8 +33,6 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function Header(headerProps: HeaderProps): ReactElement {
-  const [email, setEmail] = useState(sessionStorage.getItem("email") as string);
-
   function handleDrawerOpen() {
     headerProps.setOpen(true);
   }
@@ -60,9 +58,8 @@ export default function Header(headerProps: HeaderProps): ReactElement {
           <SessionMetadataSelect
             selectedSessionId={headerProps.selectedSessionId}
             setSessionId={headerProps.setSelectedSessionId}
-            email={email}
           ></SessionMetadataSelect>
-          <Login setEmail={setEmail} />
+          <AuthenticationHeader />
         </Stack>
       </Toolbar>
     </AppBar>
