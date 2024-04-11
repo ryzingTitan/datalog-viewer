@@ -1,9 +1,9 @@
-import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import { ReactElement } from "react";
 import { Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { ReactElement } from "react";
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
 
-export default function Welcome(): ReactElement {
+export default function Page(): ReactElement {
   return (
     <Stack alignItems={"center"}>
       <Typography variant="h2">Welcome to the Datalog Viewer!</Typography>

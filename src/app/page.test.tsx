@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import Welcome from "./Welcome";
+import Page from "./page";
 
-describe("Welcome Component", () => {
-  it("should render welcome page", () => {
-    render(<Welcome />);
+describe("Page Component", () => {
+  it("should render page", () => {
+    render(<Page />);
 
     expect(screen.getByRole("heading")).toHaveTextContent(
       /^Welcome to the Datalog Viewer!$/,
