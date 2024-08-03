@@ -1,24 +1,22 @@
 "use client";
 
 import { ReactElement } from "react";
-import AuthenticationHeaderProps from "@/interfaces/AuthenticationHeaderProps";
+import HeaderProps from "@/interfaces/HeaderProps";
 import { Avatar, IconButton, Stack, Tooltip } from "@mui/material";
 import { Login, Logout } from "@mui/icons-material";
 import { signIn, signOut } from "next-auth/react";
 
 export default function AuthenticationHeader(
-  authenticationHeaderProps: AuthenticationHeaderProps,
+  headerProps: HeaderProps,
 ): ReactElement {
-  if (authenticationHeaderProps.session) {
+  if (headerProps.session) {
     return (
       <Stack direction="row" spacing={1}>
-        <Tooltip title={authenticationHeaderProps.session.user?.name}>
-          <Avatar
-            src={authenticationHeaderProps.session.user?.image ?? undefined}
-          />
+        <Tooltip title={headerProps.session.user?.name}>
+          <Avatar src={headerProps.session.user?.image ?? undefined} />
         </Tooltip>
         <Tooltip title="Logout">
-          <IconButton aria-label="logout" onClick={() => signOut()}>
+          <IconButton onClick={() => signOut()}>
             <Logout />
           </IconButton>
         </Tooltip>
@@ -27,7 +25,7 @@ export default function AuthenticationHeader(
   } else {
     return (
       <Tooltip title="Login">
-        <IconButton aria-label="login" onClick={() => signIn("google")}>
+        <IconButton onClick={() => signIn("google")}>
           <Login />
         </IconButton>
       </Tooltip>

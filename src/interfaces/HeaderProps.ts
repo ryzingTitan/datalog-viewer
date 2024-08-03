@@ -1,5 +1,5 @@
 import { Session } from "next-auth";
 
-export default interface AuthenticationHeaderProps {
+export default interface HeaderProps {
   session: Session | null;
 }
