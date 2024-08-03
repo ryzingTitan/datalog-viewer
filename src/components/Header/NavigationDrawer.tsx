@@ -10,7 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { EditRoad, Home, Menu } from "@mui/icons-material";
+import { DirectionsCar, EditRoad, Home, Menu } from "@mui/icons-material";
 import HeaderProps from "@/interfaces/HeaderProps";
 import Link from "next/link";
 
@@ -65,6 +65,16 @@ export default function NavigationDrawer(
                   <EditRoad />
                 </ListItemIcon>
                 <ListItemText primary="Track Editor" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link href="/cars" style={{ textDecoration: "none" }}>
+            <ListItem key="CarEditor" disablePadding>
+              <ListItemButton sx={{ color: "#fff" }}>
+                <ListItemIcon>
+                  <DirectionsCar />
+                </ListItemIcon>
+                <ListItemText primary="Car Editor" />
               </ListItemButton>
             </ListItem>
           </Link>

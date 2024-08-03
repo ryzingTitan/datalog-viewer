@@ -3,7 +3,7 @@ import { GridRowModes, GridToolbarContainer } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
-export default function EditToolbar(editToolbarProps: EditToolbarProps) {
+export default function TrackEditorToolbar(editToolbarProps: EditToolbarProps) {
   const { setRows, setRowModesModel } = editToolbarProps;
 
   const handleClick = () => {

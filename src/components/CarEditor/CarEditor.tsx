@@ -11,7 +11,6 @@ import {
   GridRowModes,
   GridRowModesModel,
 } from "@mui/x-data-grid";
-import Track from "@/interfaces/Track";
 import {
   Cancel,
   Close,
@@ -21,7 +20,6 @@ import {
   Save,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import GetTracks from "@/actions/tracks/GetTracks";
 import {
   closeSnackbar,
   enqueueSnackbar,
@@ -29,31 +27,25 @@ import {
   SnackbarProvider,
 } from "notistack";
 import theme from "@/theme";
-import CreateTrack from "@/actions/tracks/CreateTrack";
-import UpdateTrack from "@/actions/tracks/UpdateTrack";
-import DeleteTrack from "@/actions/tracks/DeleteTrack";
-import dynamic from "next/dynamic";
-import TrackEditorToolbar from "@/components/TrackEditor/TrackEditorToolbar";
+import Car from "@/interfaces/Car";
+import GetCars from "@/actions/cars/GetCars";
+import CarEditorToolbar from "@/components/CarEditor/CarEditorToolbar";
+import UpdateCar from "@/actions/cars/UpdateCar";
+import CreateCar from "@/actions/cars/CreateCar";
+import DeleteCar from "@/actions/cars/DeleteCar";
 
-const TrackPreview = dynamic(
-  () => import("@/components/TrackEditor/TrackPreview"),
-  {
-    ssr: false,
-  },
-);
-
-export default function TrackEditor(): ReactElement {
-  const [rows, setRows] = useState(Array<Track>);
+export default function CarEditor(): ReactElement {
+  const [rows, setRows] = useState(Array<Car>);
   const [isPending, startTransition] = useTransition();
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
 
   useEffect(() => {
     startTransition(async () => {
       try {
-        setRows(await GetTracks());
+        setRows(await GetCars());
       } catch (error: any) {
         setRows(Array());
-        enqueueSnackbar("Failed to retrieve tracks", { variant: "error" });
+        enqueueSnackbar("Failed to retrieve cars", { variant: "error" });
       }
     });
   }, []);
@@ -77,10 +69,10 @@ export default function TrackEditor(): ReactElement {
 
   const handleDeleteClick = (id: GridRowId) => async () => {
     try {
-      await DeleteTrack(id as number);
+      await DeleteCar(id as number);
       setRows(rows.filter((row) => row.id !== id));
     } catch (error: any) {
-      enqueueSnackbar("Failed to delete track", { variant: "error" });
+      enqueueSnackbar("Failed to delete car", { variant: "error" });
     }
   };
 
@@ -102,15 +94,15 @@ export default function TrackEditor(): ReactElement {
 
     if (updatedRow.isNew) {
       try {
-        id = await CreateTrack(updatedRow as Track);
+        id = await CreateCar(updatedRow as Car);
       } catch (error: any) {
-        enqueueSnackbar("Failed to create track", { variant: "error" });
+        enqueueSnackbar("Failed to create car", { variant: "error" });
       }
     } else {
       try {
-        await UpdateTrack(updatedRow as Track);
+        await UpdateCar(updatedRow as Car);
       } catch (error: any) {
-        enqueueSnackbar("Failed to update track", { variant: "error" });
+        enqueueSnackbar("Failed to update car", { variant: "error" });
       }
     }
 
@@ -127,17 +119,9 @@ export default function TrackEditor(): ReactElement {
 
   const columns: GridColDef[] = [
     {
-      field: "name",
-      headerName: "Track Name",
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-      flex: 1,
-    },
-    {
-      field: "latitude",
-      headerName: "Track Latitude",
+      field: "year",
       type: "number",
+      headerName: "Car Year",
       headerAlign: "center",
       align: "center",
       editable: true,
@@ -145,27 +129,20 @@ export default function TrackEditor(): ReactElement {
       valueFormatter: (value?: number) => value?.toString(),
     },
     {
-      field: "longitude",
-      headerName: "Track Longitude",
+      field: "make",
+      headerName: "Car Make",
       headerAlign: "center",
       align: "center",
       editable: true,
-      type: "number",
       flex: 1,
-      valueFormatter: (value?: number) => value?.toString(),
     },
     {
-      field: "trackPreview",
-      headerName: "Track Preview",
+      field: "model",
+      headerName: "Car Model",
       headerAlign: "center",
       align: "center",
-      renderCell: (params) => (
-        <TrackPreview
-          longitude={params.row.longitude}
-          latitude={params.row.latitude}
-          iconSize={"medium"}
-        />
-      ),
+      editable: true,
+      flex: 1,
     },
     {
       field: "actions",
@@ -254,7 +231,7 @@ export default function TrackEditor(): ReactElement {
         processRowUpdate={processRowUpdate}
         loading={isPending}
         slots={{
-          toolbar: TrackEditorToolbar,
+          toolbar: CarEditorToolbar,
         }}
         slotProps={{
           toolbar: { setRows, setRowModesModel },
