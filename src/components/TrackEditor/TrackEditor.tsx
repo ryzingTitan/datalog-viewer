@@ -53,7 +53,7 @@ export default function TrackEditor(): ReactElement {
         setRows(await GetTracks());
       } catch (error: any) {
         setRows(Array());
-        enqueueSnackbar("Failed to retrieve tracks", { variant: "error" });
+        enqueueSnackbar(error.message, { variant: "error" });
       }
     });
   }, []);
@@ -80,7 +80,7 @@ export default function TrackEditor(): ReactElement {
       await DeleteTrack(id as number);
       setRows(rows.filter((row) => row.id !== id));
     } catch (error: any) {
-      enqueueSnackbar("Failed to delete track", { variant: "error" });
+      enqueueSnackbar(error.message, { variant: "error" });
     }
   };
 
@@ -104,13 +104,13 @@ export default function TrackEditor(): ReactElement {
       try {
         id = await CreateTrack(updatedRow as Track);
       } catch (error: any) {
-        enqueueSnackbar("Failed to create track", { variant: "error" });
+        enqueueSnackbar(error.message, { variant: "error" });
       }
     } else {
       try {
         await UpdateTrack(updatedRow as Track);
       } catch (error: any) {
-        enqueueSnackbar("Failed to update track", { variant: "error" });
+        enqueueSnackbar(error.message, { variant: "error" });
       }
     }
 
