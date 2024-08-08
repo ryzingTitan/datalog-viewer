@@ -11,6 +11,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import {
+  Analytics,
   DirectionsCar,
   EditRoad,
   Home,
@@ -61,6 +62,16 @@ export default function NavigationDrawer(
                   <Home />
                 </ListItemIcon>
                 <ListItemText primary="Home" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link href="/datalogs" style={{ textDecoration: "none" }}>
+            <ListItem key="Datalogs" disablePadding>
+              <ListItemButton sx={{ color: "#fff" }}>
+                <ListItemIcon>
+                  <Analytics />
+                </ListItemIcon>
+                <ListItemText primary="Datalogs" />
               </ListItemButton>
             </ListItem>
           </Link>

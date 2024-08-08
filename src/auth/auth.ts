@@ -1,7 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import { Account, AuthOptions, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import DatalogSession from "@/interfaces/DatalogSession";
+import DatalogViewerSession from "@/interfaces/DatalogViewerSession";
 
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -45,7 +45,7 @@ export const authOptions: AuthOptions = {
     }: {
       session: Session;
       token: JWT;
-    }): Promise<DatalogSession> {
+    }): Promise<DatalogViewerSession> {
       return {
         user: session.user,
         expires: session.expires,

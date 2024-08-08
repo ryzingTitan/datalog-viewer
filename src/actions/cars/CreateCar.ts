@@ -2,13 +2,13 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth/auth";
-import DatalogSession from "@/interfaces/DatalogSession";
+import DatalogViewerSession from "@/interfaces/DatalogViewerSession";
 import Car from "@/interfaces/Car";
 
 const datalogApiUrl = process.env.DATALOG_API_URL;
 
 export default async function CreateCar(car: Car): Promise<number> {
-  const session = (await getServerSession(authOptions)) as DatalogSession;
+  const session = (await getServerSession(authOptions)) as DatalogViewerSession;
 
   const response = await fetch(`${datalogApiUrl}/api/cars`, {
     method: "POST",

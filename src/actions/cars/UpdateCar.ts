@@ -3,13 +3,13 @@
 import Track from "@/interfaces/Track";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth/auth";
-import DatalogSession from "@/interfaces/DatalogSession";
+import DatalogViewerSession from "@/interfaces/DatalogViewerSession";
 import Car from "@/interfaces/Car";
 
 const datalogApiUrl = process.env.DATALOG_API_URL;
 
 export default async function UpdateCar(car: Car) {
-  const session = (await getServerSession(authOptions)) as DatalogSession;
+  const session = (await getServerSession(authOptions)) as DatalogViewerSession;
 
   const response = await fetch(`${datalogApiUrl}/api/cars/${car.id}`, {
     method: "PUT",

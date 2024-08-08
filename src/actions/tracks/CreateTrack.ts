@@ -3,12 +3,12 @@
 import Track from "@/interfaces/Track";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth/auth";
-import DatalogSession from "@/interfaces/DatalogSession";
+import DatalogViewerSession from "@/interfaces/DatalogViewerSession";
 
 const datalogApiUrl = process.env.DATALOG_API_URL;
 
 export default async function CreateTrack(track: Track): Promise<number> {
-  const session = (await getServerSession(authOptions)) as DatalogSession;
+  const session = (await getServerSession(authOptions)) as DatalogViewerSession;
 
   const response = await fetch(`${datalogApiUrl}/api/tracks`, {
     method: "POST",

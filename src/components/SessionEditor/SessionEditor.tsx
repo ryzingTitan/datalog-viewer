@@ -46,7 +46,7 @@ import {
 } from "@mui/material";
 import theme from "@/theme";
 import { Session } from "@/interfaces/Session";
-import GetSessions from "@/actions/session/GetSessions";
+import GetSessions from "@/actions/sessions/GetSessions";
 import AddSession from "@/components/SessionEditor/AddSession";
 import { format, parseISO } from "date-fns";
 import Track from "@/interfaces/Track";
@@ -54,7 +54,7 @@ import Car from "@/interfaces/Car";
 import { useDropzone } from "react-dropzone";
 import GetTracks from "@/actions/tracks/GetTracks";
 import GetCars from "@/actions/cars/GetCars";
-import UpdateSession from "@/actions/session/UpdateSession";
+import UpdateSession from "@/actions/sessions/UpdateSession";
 
 const formatDateTime = (dateTime: string): string => {
   const date = parseISO(dateTime);

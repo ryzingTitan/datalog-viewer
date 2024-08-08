@@ -23,7 +23,7 @@ import {
 import { Add, AttachFile, CloudUpload } from "@mui/icons-material";
 import { enqueueSnackbar } from "notistack";
 import { useDropzone } from "react-dropzone";
-import CreateSession from "@/actions/session/CreateSession";
+import CreateSession from "@/actions/sessions/CreateSession";
 import AddSessionProps from "@/interfaces/AddSessionProps";
 
 export default function AddSession(

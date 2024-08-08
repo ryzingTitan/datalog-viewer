@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import theme from "@/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
+import Header from "@/components/Header/Header";
 
 export const metadata: Metadata = {
   title: "Datalog Viewer",
@@ -21,6 +22,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <Header />
             {children}
           </ThemeProvider>
         </AppRouterCacheProvider>
