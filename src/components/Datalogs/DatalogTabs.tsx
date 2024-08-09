@@ -2,6 +2,7 @@ import { ReactElement, ReactNode, SyntheticEvent, useState } from "react";
 import DatalogProps from "@/interfaces/DatalogProps";
 import { Box, Tab, Tabs } from "@mui/material";
 import Summary from "@/components/Datalogs/Summary";
+import TemperatureGraph from "@/components/Datalogs/TemperatureGraph";
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -55,7 +56,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         <Summary sessionId={datalogProps.sessionId} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Temperatures
+        <TemperatureGraph sessionId={datalogProps.sessionId} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Boost
