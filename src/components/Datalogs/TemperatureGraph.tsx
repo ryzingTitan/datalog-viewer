@@ -1,34 +1,12 @@
-"use client";
-
-import DatalogProps from "@/interfaces/DatalogProps";
-import { useEffect, useState, useTransition } from "react";
-import Datalog from "@/interfaces/Datalog";
-import GetDatalogs from "@/actions/datalogs/GetDatalogs";
-import { enqueueSnackbar } from "notistack";
 import { format, parseISO } from "date-fns";
 import { LineChart } from "@mui/x-charts";
+import DatalogTabProps from "@/interfaces/DatalogTabProps";
 
-export default function TemperatureGraph(datalogProps: DatalogProps) {
-  const [datalogs, setDatalogs] = useState(Array<Datalog>);
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    startTransition(async () => {
-      try {
-        if (datalogProps.sessionId !== null) {
-          setDatalogs(await GetDatalogs(datalogProps.sessionId));
-        }
-      } catch (error: any) {
-        setDatalogs(Array());
-        enqueueSnackbar(error.message, { variant: "error" });
-      }
-    });
-  }, [datalogProps.sessionId]);
-
+export default function TemperatureGraph(datalogTabProps: DatalogTabProps) {
   const labels = Array<Date>();
   const intakeTemperatureDataPoints = Array<number>();
   const coolantTemperatureDataPoints = Array<number>();
-  datalogs.forEach((datalog) => {
+  datalogTabProps.datalogs.forEach((datalog) => {
     labels.push(parseISO(datalog.timestamp));
     intakeTemperatureDataPoints.push(datalog.intakeAirTemperature);
     coolantTemperatureDataPoints.push(datalog.coolantTemperature);
@@ -36,17 +14,7 @@ export default function TemperatureGraph(datalogProps: DatalogProps) {
 
   return (
     <LineChart
-      loading={isPending}
-      sx={{
-        "& .MuiMarkElement-root": {
-          display: "none",
-        },
-      }}
-      slotProps={{
-        legend: {
-          direction: "row",
-        },
-      }}
+      loading={datalogTabProps.isPending}
       xAxis={[
         {
           data: labels,
@@ -66,11 +34,13 @@ export default function TemperatureGraph(datalogProps: DatalogProps) {
           data: intakeTemperatureDataPoints,
           label: "Intake Air Temperature",
           valueFormatter: (value) => `${value} \u2109`,
+          showMark: false,
         },
         {
           data: coolantTemperatureDataPoints,
           label: "Coolant Temperature",
           valueFormatter: (value) => `${value} \u2109`,
+          showMark: false,
         },
       ]}
       tooltip={{

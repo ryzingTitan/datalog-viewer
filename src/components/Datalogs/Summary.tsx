@@ -1,38 +1,18 @@
 "use client";
 
-import { ReactElement, useEffect, useState, useTransition } from "react";
+import { ReactElement } from "react";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { format, parseISO } from "date-fns";
 import Datalog from "@/interfaces/Datalog";
-import {
-  closeSnackbar,
-  enqueueSnackbar,
-  SnackbarKey,
-  SnackbarProvider,
-} from "notistack";
+import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
 import { IconButton } from "@mui/material";
 import { Close, ErrorOutline } from "@mui/icons-material";
 import theme from "@/theme";
-import DatalogProps from "@/interfaces/DatalogProps";
-import GetDatalogs from "@/actions/datalogs/GetDatalogs";
+import DatalogTabProps from "@/interfaces/DatalogTabProps";
 
-export default function Summary(datalogProps: DatalogProps): ReactElement {
-  const [rows, setRows] = useState(Array<Datalog>);
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    startTransition(async () => {
-      try {
-        if (datalogProps.sessionId !== null) {
-          setRows(await GetDatalogs(datalogProps.sessionId));
-        }
-      } catch (error: any) {
-        setRows(Array());
-        enqueueSnackbar(error.message, { variant: "error" });
-      }
-    });
-  }, [datalogProps.sessionId]);
-
+export default function Summary(
+  datalogTabProps: DatalogTabProps,
+): ReactElement {
   return (
     <>
       <SnackbarProvider
@@ -58,10 +38,10 @@ export default function Summary(datalogProps: DatalogProps): ReactElement {
       />
       <DataGrid
         autoHeight
-        rows={rows}
+        rows={datalogTabProps.datalogs}
         columns={columns}
         getRowId={(row: Datalog) => row.timestamp}
-        loading={isPending}
+        loading={datalogTabProps.isPending}
         slots={{
           toolbar: GridToolbar,
         }}

@@ -1,30 +1,19 @@
-import { ReactElement, ReactNode, SyntheticEvent, useState } from "react";
+import {
+  ReactElement,
+  SyntheticEvent,
+  useEffect,
+  useState,
+  useTransition,
+} from "react";
 import DatalogProps from "@/interfaces/DatalogProps";
 import { Box, Tab, Tabs } from "@mui/material";
 import Summary from "@/components/Datalogs/Summary";
 import TemperatureGraph from "@/components/Datalogs/TemperatureGraph";
-
-interface TabPanelProps {
-  children?: ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box margin={2}>{children}</Box>}
-    </div>
-  );
-}
+import GetDatalogs from "@/actions/datalogs/GetDatalogs";
+import { enqueueSnackbar } from "notistack";
+import Datalog from "@/interfaces/Datalog";
+import BoostPressureGraph from "@/components/Datalogs/BoostPressureGraph";
+import CustomTabPanel from "@/components/Datalogs/CustomTabPanel";
 
 function a11yProps(index: number) {
   return {
@@ -35,6 +24,21 @@ function a11yProps(index: number) {
 
 export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
   const [value, setValue] = useState(0);
+  const [datalogs, setDatalogs] = useState(Array<Datalog>);
+  const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    startTransition(async () => {
+      try {
+        if (datalogProps.sessionId !== null) {
+          setDatalogs(await GetDatalogs(datalogProps.sessionId));
+        }
+      } catch (error: any) {
+        setDatalogs(Array());
+        enqueueSnackbar(error.message, { variant: "error" });
+      }
+    });
+  }, [datalogProps.sessionId]);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -53,13 +57,13 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Summary sessionId={datalogProps.sessionId} />
+        <Summary isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <TemperatureGraph sessionId={datalogProps.sessionId} />
+        <TemperatureGraph isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Boost
+        <BoostPressureGraph isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
         Throttle
