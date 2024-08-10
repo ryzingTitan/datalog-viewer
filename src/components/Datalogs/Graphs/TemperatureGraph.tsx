@@ -1,8 +1,11 @@
 import { format, parseISO } from "date-fns";
 import { LineChart } from "@mui/x-charts";
 import DatalogTabProps from "@/interfaces/DatalogTabProps";
+import { ReactElement } from "react";
 
-export default function TemperatureGraph(datalogTabProps: DatalogTabProps) {
+export default function TemperatureGraph(
+  datalogTabProps: DatalogTabProps,
+): ReactElement {
   const labels = Array<Date>();
   const intakeTemperatureDataPoints = Array<number>();
   const coolantTemperatureDataPoints = Array<number>();
