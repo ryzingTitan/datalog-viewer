@@ -8,12 +8,13 @@ import {
 import DatalogProps from "@/interfaces/DatalogProps";
 import { Box, Tab, Tabs } from "@mui/material";
 import Summary from "@/components/Datalogs/Summary";
-import TemperatureGraph from "@/components/Datalogs/TemperatureGraph";
+import TemperatureGraph from "@/components/Datalogs/Graphs/TemperatureGraph";
 import GetDatalogs from "@/actions/datalogs/GetDatalogs";
 import { enqueueSnackbar } from "notistack";
 import Datalog from "@/interfaces/Datalog";
-import BoostPressureGraph from "@/components/Datalogs/BoostPressureGraph";
+import BoostPressureGraph from "@/components/Datalogs/Graphs/BoostPressureGraph";
 import CustomTabPanel from "@/components/Datalogs/CustomTabPanel";
+import ThrottleGraph from "@/components/Datalogs/Graphs/ThrottleGraph";
 
 function a11yProps(index: number) {
   return {
@@ -66,7 +67,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         <BoostPressureGraph isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        Throttle
+        <ThrottleGraph isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
         Speed
