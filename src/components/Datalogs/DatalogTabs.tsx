@@ -16,6 +16,7 @@ import BoostPressureGraph from "@/components/Datalogs/Graphs/BoostPressureGraph"
 import CustomTabPanel from "@/components/Datalogs/CustomTabPanel";
 import ThrottleGraph from "@/components/Datalogs/Graphs/ThrottleGraph";
 import SpeedGraph from "@/components/Datalogs/Graphs/SpeedGraph";
+import TrackMap from "@/components/Datalogs/TrackMap/TrackMap";
 
 function a11yProps(index: number) {
   return {
@@ -32,15 +33,15 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
   useEffect(() => {
     startTransition(async () => {
       try {
-        if (datalogProps.sessionId !== null) {
-          setDatalogs(await GetDatalogs(datalogProps.sessionId));
+        if (datalogProps.session?.id !== null) {
+          setDatalogs(await GetDatalogs(datalogProps.session?.id!));
         }
       } catch (error: any) {
         setDatalogs(Array());
         enqueueSnackbar(error.message, { variant: "error" });
       }
     });
-  }, [datalogProps.sessionId]);
+  }, [datalogProps.session]);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -49,7 +50,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs value={value} onChange={handleChange} centered>
           <Tab label="Summary" {...a11yProps(0)} />
           <Tab label="Temperature" {...a11yProps(1)} />
           <Tab label="Boost" {...a11yProps(2)} />
@@ -74,7 +75,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         <SpeedGraph isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
-        Map
+        <TrackMap session={datalogProps.session} datalogs={datalogs} />
       </CustomTabPanel>
     </Box>
   );

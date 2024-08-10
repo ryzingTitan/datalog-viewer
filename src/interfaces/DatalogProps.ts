@@ -1,3 +1,5 @@
+import { Session } from "@/interfaces/Session";
+
 export default interface DatalogProps {
-  sessionId: number | null;
+  session: Session | undefined;
 }

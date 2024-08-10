@@ -31,12 +31,12 @@ const formatDateTime = (dateTime: string): string => {
 
 export default function SessionSummary(): ReactElement {
   const [sessions, setSessions] = useState(Array<Session>());
-  const [sessionId, setSessionId] = useState<number | null>(null);
+  const [session, setSession] = useState<Session>();
   const [isPending, startTransition] = useTransition();
 
   const handleChange = (event: SyntheticEvent, value: Session | null) => {
     if (value !== null) {
-      setSessionId(value.id);
+      setSession(value);
     }
   };
 
@@ -64,7 +64,7 @@ export default function SessionSummary(): ReactElement {
         sx={{ width: 500, margin: 2 }}
         renderInput={(params) => <TextField {...params} label="Sessions" />}
       />
-      <DatalogTabs sessionId={sessionId}></DatalogTabs>
+      <DatalogTabs session={session}></DatalogTabs>
     </>
   );
 }
