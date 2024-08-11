@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import TrackMapProps from "@/interfaces/TrackMapProps";
 import TrackMapButtons from "@/components/Datalogs/TrackMap/TrackMapButtons";
 import TrackMapMarker from "@/components/Datalogs/TrackMap/TrackMapMarker";
+import Dashboard from "@/components/Datalogs/Dashboard/Dashboard";
 
 export default function TrackMap(trackMapProps: TrackMapProps): ReactElement {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -67,7 +68,10 @@ export default function TrackMap(trackMapProps: TrackMapProps): ReactElement {
           setCurrentIndex={setCurrentIndex}
         ></TrackMapButtons>
       </Stack>
-      {/*<Dashboard datalogs={datalogs} currentIndex={currentIndex} />*/}
+      <Dashboard
+        datalogs={trackMapProps.datalogs}
+        currentIndex={currentIndex}
+      />
     </Box>
   );
 }
