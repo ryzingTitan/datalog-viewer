@@ -47,16 +47,20 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
     setValue(newValue);
   };
 
+  const isDisabled = (): boolean => {
+    return datalogs.length == 0;
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label="Summary" {...a11yProps(0)} />
-          <Tab label="Temperature" {...a11yProps(1)} />
-          <Tab label="Boost" {...a11yProps(2)} />
-          <Tab label="Throttle" {...a11yProps(3)} />
-          <Tab label="Speed" {...a11yProps(4)} />
-          <Tab label="Map" {...a11yProps(5)} />
+          <Tab label="Temperature" {...a11yProps(1)} disabled={isDisabled()} />
+          <Tab label="Boost" {...a11yProps(2)} disabled={isDisabled()} />
+          <Tab label="Throttle" {...a11yProps(3)} disabled={isDisabled()} />
+          <Tab label="Speed" {...a11yProps(4)} disabled={isDisabled()} />
+          <Tab label="Map" {...a11yProps(5)} disabled={isDisabled()} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>

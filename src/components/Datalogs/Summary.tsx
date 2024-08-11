@@ -1,5 +1,3 @@
-"use client";
-
 import { ReactElement } from "react";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { format, parseISO } from "date-fns";

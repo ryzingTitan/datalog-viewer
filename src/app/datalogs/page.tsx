@@ -7,7 +7,7 @@ import {
   useState,
   useTransition,
 } from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Stack, TextField } from "@mui/material";
 import { Session } from "@/interfaces/Session";
 import GetSessions from "@/actions/sessions/GetSessions";
 import { enqueueSnackbar } from "notistack";
@@ -52,7 +52,7 @@ export default function SessionSummary(): ReactElement {
   }, []);
 
   return (
-    <>
+    <Stack alignItems={"center"}>
       <Autocomplete
         disablePortal
         onChange={handleChange}
@@ -65,6 +65,6 @@ export default function SessionSummary(): ReactElement {
         renderInput={(params) => <TextField {...params} label="Sessions" />}
       />
       <DatalogTabs session={session}></DatalogTabs>
-    </>
+    </Stack>
   );
 }
