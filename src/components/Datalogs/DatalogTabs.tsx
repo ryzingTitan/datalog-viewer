@@ -33,7 +33,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
   useEffect(() => {
     startTransition(async () => {
       try {
-        if (datalogProps.session?.id !== null) {
+        if (datalogProps.session?.id !== undefined) {
           setDatalogs(await GetDatalogs(datalogProps.session?.id!));
         }
       } catch (error: any) {
