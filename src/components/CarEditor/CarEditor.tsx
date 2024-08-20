@@ -10,6 +10,7 @@ import {
   GridRowModel,
   GridRowModes,
   GridRowModesModel,
+  GridSlots,
 } from "@mui/x-data-grid";
 import {
   Cancel,
@@ -106,7 +107,11 @@ export default function CarEditor(): ReactElement {
       }
     }
 
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    setRows(
+      rows.map((row) =>
+        row.id === newRow.id ? (updatedRow as Car) : (row as Car),
+      ),
+    );
 
     updatedRow.id = id;
     updatedRow.isNew = false;
@@ -231,7 +236,7 @@ export default function CarEditor(): ReactElement {
         processRowUpdate={processRowUpdate}
         loading={isPending}
         slots={{
-          toolbar: CarEditorToolbar,
+          toolbar: CarEditorToolbar as GridSlots["toolbar"],
         }}
         slotProps={{
           toolbar: { setRows, setRowModesModel },

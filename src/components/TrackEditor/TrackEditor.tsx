@@ -10,6 +10,7 @@ import {
   GridRowModel,
   GridRowModes,
   GridRowModesModel,
+  GridSlots,
 } from "@mui/x-data-grid";
 import Track from "@/interfaces/Track";
 import {
@@ -114,7 +115,11 @@ export default function TrackEditor(): ReactElement {
       }
     }
 
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    setRows(
+      rows.map((row) =>
+        row.id === newRow.id ? (updatedRow as Track) : (row as Track),
+      ),
+    );
 
     updatedRow.id = id;
     updatedRow.isNew = false;
@@ -254,7 +259,7 @@ export default function TrackEditor(): ReactElement {
         processRowUpdate={processRowUpdate}
         loading={isPending}
         slots={{
-          toolbar: TrackEditorToolbar,
+          toolbar: TrackEditorToolbar as GridSlots["toolbar"],
         }}
         slotProps={{
           toolbar: { setRows, setRowModesModel },
