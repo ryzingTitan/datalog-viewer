@@ -16,7 +16,7 @@ export default function AuthenticationHeader(
           <Avatar src={headerProps.session.user?.image ?? undefined} />
         </Tooltip>
         <Tooltip title="Logout">
-          <IconButton onClick={() => signOut()}>
+          <IconButton onClick={() => signOut({ callbackUrl: "/" })}>
             <Logout />
           </IconButton>
         </Tooltip>
