@@ -21,6 +21,12 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: googleClientId,
       clientSecret: googleClientSecret,
+      authorization: {
+        params: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
     }),
   ],
   callbacks: {
@@ -35,9 +41,42 @@ export const authOptions: AuthOptions = {
         token.idToken = account.id_token;
         token.refreshToken = account.refresh_token;
         token.expiresAt = account.expires_at;
-      }
+        return token;
+      } else if (Date.now() < token.expiresAt * 1000) {
+        return token;
+      } else {
+        if (!token.refreshToken) throw new TypeError("Missing refresh token");
 
-      return token;
+        try {
+          const response = await fetch("https://oauth2.googleapis.com/token", {
+            method: "POST",
+            body: new URLSearchParams({
+              client_id: googleClientId,
+              client_secret: googleClientSecret,
+              grant_type: "refresh_token",
+              refresh_token: token.refreshToken,
+            }),
+          });
+
+          const tokensOrError = await response.json();
+
+          if (!response.ok) throw tokensOrError;
+
+          const newTokens = tokensOrError;
+
+          token.idToken = newTokens.id_token;
+          token.expiresAt = Math.floor(
+            Date.now() / 1000 + newTokens.expires_in,
+          );
+          if (newTokens.refresh_token)
+            token.refreshToken = newTokens.refresh_token;
+
+          return token;
+        } catch (error) {
+          console.error("Error refreshing id token", error);
+          return token;
+        }
+      }
     },
     async session({
       session,
