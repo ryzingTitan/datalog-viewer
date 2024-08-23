@@ -28,7 +28,7 @@ export default async function CreateCar(car: Car): Promise<number> {
     console.error(
       `Request failed with status code ${response.status}. Unable to create car.`,
     );
-    throw new Error("Failed to create car", { cause: response.status });
+    throw new Error("Failed to create car");
   }
 
   let urlElements = response.headers.get("Location")?.split("/") ?? Array();
