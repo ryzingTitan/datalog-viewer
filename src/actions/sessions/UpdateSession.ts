@@ -3,6 +3,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth/auth";
 import DatalogViewerSession from "@/interfaces/DatalogViewerSession";
+import { redirect } from "next/navigation";
 
 const datalogApiUrl = process.env.DATALOG_API_URL;
 
@@ -11,6 +12,10 @@ export default async function UpdateSession(
   sessionId: number,
 ) {
   const session = (await getServerSession(authOptions)) as DatalogViewerSession;
+
+  if (session === null) {
+    redirect("/");
+  }
 
   formData.append("userEmail", session.user?.email ?? "");
   formData.append("userFirstName", session.user?.name?.split(" ")[0] ?? "");

@@ -4,11 +4,16 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth/auth";
 import DatalogViewerSession from "@/interfaces/DatalogViewerSession";
 import Car from "@/interfaces/Car";
+import { redirect } from "next/navigation";
 
 const datalogApiUrl = process.env.DATALOG_API_URL;
 
 export default async function CreateCar(car: Car): Promise<number> {
   const session = (await getServerSession(authOptions)) as DatalogViewerSession;
+
+  if (session === null) {
+    redirect("/");
+  }
 
   const response = await fetch(`${datalogApiUrl}/api/cars`, {
     method: "POST",
@@ -23,7 +28,7 @@ export default async function CreateCar(car: Car): Promise<number> {
     console.error(
       `Request failed with status code ${response.status}. Unable to create car.`,
     );
-    throw new Error("Failed to create car");
+    throw new Error("Failed to create car", { cause: response.status });
   }
 
   let urlElements = response.headers.get("Location")?.split("/") ?? Array();

@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth/auth";
 import DatalogViewerSession from "@/interfaces/DatalogViewerSession";
 import Datalog from "@/interfaces/Datalog";
+import { redirect } from "next/navigation";
 
 const datalogApiUrl = process.env.DATALOG_API_URL;
 
@@ -11,6 +12,10 @@ export default async function GetDatalogs(
   sessionId: number,
 ): Promise<Array<Datalog>> {
   const session = (await getServerSession(authOptions)) as DatalogViewerSession;
+
+  if (session === null) {
+    redirect("/");
+  }
 
   const response = await fetch(
     `${datalogApiUrl}/api/sessions/${sessionId}/datalogs`,
