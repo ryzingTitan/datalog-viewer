@@ -41,9 +41,9 @@ export const authOptions: AuthOptions = {
       account: Account | null;
     }): Promise<JWT> {
       if (account) {
-        token.idToken = account.id_token;
+        token.idToken = account.id_token ?? "";
         token.refreshToken = account.refresh_token;
-        token.expiresAt = account.expires_at;
+        token.expiresAt = account.expires_at ?? Date.now();
         return token;
       } else if (Date.now() < token.expiresAt * 1000) {
         return token;
@@ -96,3 +96,11 @@ export const authOptions: AuthOptions = {
     },
   },
 };
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    idToken: string;
+    expiresAt: number;
+    refreshToken?: string;
+  }
+}
