@@ -38,7 +38,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         }
       } catch (error: any) {
         setDatalogs(Array());
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar("Failed to retrieve datalogs", { variant: "error" });
       }
     });
   }, [datalogProps.session]);

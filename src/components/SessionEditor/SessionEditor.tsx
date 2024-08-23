@@ -83,7 +83,7 @@ export default function SessionEditor(): ReactElement {
       handleClose();
       enqueueSnackbar("Session updated successfully", { variant: "success" });
     } catch (error: any) {
-      enqueueSnackbar(error.message, { variant: "error" });
+      enqueueSnackbar("Failed to update session", { variant: "error" });
     }
   };
 
@@ -117,20 +117,20 @@ export default function SessionEditor(): ReactElement {
         setRows(await GetSessions());
       } catch (error: any) {
         setRows(Array());
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar("Failed to get sessions", { variant: "error" });
       }
       try {
         setTracks(await GetTracks());
       } catch (error: any) {
         setTracks(Array());
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar("Failed to get tracks", { variant: "error" });
       }
 
       try {
         setCars(await GetCars());
       } catch (error: any) {
         setCars(Array());
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar("Failed to get cars", { variant: "error" });
       }
     });
   }, []);

@@ -45,7 +45,7 @@ export default function AddSession(
       handleClose();
       enqueueSnackbar("Session created successfully", { variant: "success" });
     } catch (error: any) {
-      enqueueSnackbar(error.message, { variant: "error" });
+      enqueueSnackbar("Failed to create session", { variant: "error" });
     }
   };
 

@@ -46,7 +46,7 @@ export default function CarEditor(): ReactElement {
         setRows(await GetCars());
       } catch (error: any) {
         setRows(Array());
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar("Failed to retrieve cars", { variant: "error" });
       }
     });
   }, []);
@@ -73,7 +73,7 @@ export default function CarEditor(): ReactElement {
       await DeleteCar(id as number);
       setRows(rows.filter((row) => row.id !== id));
     } catch (error: any) {
-      enqueueSnackbar(error.message, { variant: "error" });
+      enqueueSnackbar("Failed to delete car", { variant: "error" });
     }
   };
 
@@ -97,13 +97,13 @@ export default function CarEditor(): ReactElement {
       try {
         id = await CreateCar(updatedRow as Car);
       } catch (error: any) {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar("Failed to create car", { variant: "error" });
       }
     } else {
       try {
         await UpdateCar(updatedRow as Car);
       } catch (error: any) {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar("Failed to update car", { variant: "error" });
       }
     }
 

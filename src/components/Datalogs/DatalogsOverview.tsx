@@ -40,7 +40,7 @@ export default function DatalogsOverview() {
         setSessions(await GetSessions());
       } catch (error: any) {
         setSessions(Array());
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar("Failed to retrieve sessions", { variant: "error" });
       }
     });
   }, []);
