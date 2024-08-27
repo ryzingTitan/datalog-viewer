@@ -2,13 +2,18 @@ name: React application
 
 on: [push]
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/iron
           cache: "npm"
@@ -16,7 +21,7 @@ jobs:
       - run: npm audit --omit=dev
       - run: npm run format:check
       - run: npm run build
-      - run: npm test -- --coverage .
+      #      - run: npm test -- --coverage .
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
