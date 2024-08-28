@@ -15,7 +15,7 @@ import Datalog from "@/interfaces/Datalog";
 import BoostPressureGraph from "@/components/Datalogs/Graphs/BoostPressureGraph";
 import CustomTabPanel from "@/components/Datalogs/CustomTabPanel";
 import ThrottleGraph from "@/components/Datalogs/Graphs/ThrottleGraph";
-import SpeedGraph from "@/components/Datalogs/Graphs/SpeedGraph";
+import SpeedGraphs from "@/components/Datalogs/Graphs/SpeedGraphs";
 import TrackMap from "@/components/Datalogs/TrackMap/TrackMap";
 
 function a11yProps(index: number) {
@@ -76,7 +76,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         <ThrottleGraph isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <SpeedGraph isPending={isPending} datalogs={datalogs} />
+        <SpeedGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
         <TrackMap session={datalogProps.session} datalogs={datalogs} />
