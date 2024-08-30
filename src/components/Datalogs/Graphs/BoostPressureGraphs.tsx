@@ -18,7 +18,7 @@ export default function BoostPressureGraphs(
     let count = 0;
 
     boostPressureDataPoints.forEach((boostPressureDataPoint) => {
-      if (boostPressureDataPoint >= low && boostPressureDataPoint <= high) {
+      if (boostPressureDataPoint > low && boostPressureDataPoint <= high) {
         count += 1;
       }
     });

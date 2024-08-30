@@ -14,7 +14,7 @@ import { enqueueSnackbar } from "notistack";
 import Datalog from "@/interfaces/Datalog";
 import BoostPressureGraphs from "@/components/Datalogs/Graphs/BoostPressureGraphs";
 import CustomTabPanel from "@/components/Datalogs/CustomTabPanel";
-import ThrottleGraph from "@/components/Datalogs/Graphs/ThrottleGraph";
+import ThrottleGraphs from "@/components/Datalogs/Graphs/ThrottleGraphs";
 import SpeedGraphs from "@/components/Datalogs/Graphs/SpeedGraphs";
 import TrackMap from "@/components/Datalogs/TrackMap/TrackMap";
 
@@ -73,7 +73,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         <BoostPressureGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <ThrottleGraph isPending={isPending} datalogs={datalogs} />
+        <ThrottleGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
         <SpeedGraphs isPending={isPending} datalogs={datalogs} />
