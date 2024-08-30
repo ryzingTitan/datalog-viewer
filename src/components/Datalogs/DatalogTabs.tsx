@@ -8,7 +8,7 @@ import {
 import DatalogProps from "@/interfaces/DatalogProps";
 import { Box, Tab, Tabs } from "@mui/material";
 import Summary from "@/components/Datalogs/Summary";
-import TemperatureGraph from "@/components/Datalogs/Graphs/TemperatureGraph";
+import TemperatureGraphs from "@/components/Datalogs/Graphs/TemperatureGraphs";
 import GetDatalogs from "@/actions/datalogs/GetDatalogs";
 import { enqueueSnackbar } from "notistack";
 import Datalog from "@/interfaces/Datalog";
@@ -67,7 +67,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         <Summary isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <TemperatureGraph isPending={isPending} datalogs={datalogs} />
+        <TemperatureGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <BoostPressureGraphs isPending={isPending} datalogs={datalogs} />
