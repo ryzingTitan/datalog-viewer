@@ -8,14 +8,14 @@ import {
 import DatalogProps from "@/interfaces/DatalogProps";
 import { Box, Tab, Tabs } from "@mui/material";
 import Summary from "@/components/Datalogs/Summary";
-import TemperatureGraph from "@/components/Datalogs/Graphs/TemperatureGraph";
+import TemperatureGraphs from "@/components/Datalogs/Graphs/TemperatureGraphs";
 import GetDatalogs from "@/actions/datalogs/GetDatalogs";
 import { enqueueSnackbar } from "notistack";
 import Datalog from "@/interfaces/Datalog";
-import BoostPressureGraph from "@/components/Datalogs/Graphs/BoostPressureGraph";
+import BoostPressureGraphs from "@/components/Datalogs/Graphs/BoostPressureGraphs";
 import CustomTabPanel from "@/components/Datalogs/CustomTabPanel";
-import ThrottleGraph from "@/components/Datalogs/Graphs/ThrottleGraph";
-import SpeedGraph from "@/components/Datalogs/Graphs/SpeedGraph";
+import ThrottleGraphs from "@/components/Datalogs/Graphs/ThrottleGraphs";
+import SpeedGraphs from "@/components/Datalogs/Graphs/SpeedGraphs";
 import TrackMap from "@/components/Datalogs/TrackMap/TrackMap";
 
 function a11yProps(index: number) {
@@ -67,16 +67,16 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         <Summary isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <TemperatureGraph isPending={isPending} datalogs={datalogs} />
+        <TemperatureGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <BoostPressureGraph isPending={isPending} datalogs={datalogs} />
+        <BoostPressureGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <ThrottleGraph isPending={isPending} datalogs={datalogs} />
+        <ThrottleGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <SpeedGraph isPending={isPending} datalogs={datalogs} />
+        <SpeedGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
         <TrackMap session={datalogProps.session} datalogs={datalogs} />
