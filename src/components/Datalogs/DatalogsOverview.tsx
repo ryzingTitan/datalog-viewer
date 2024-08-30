@@ -31,6 +31,7 @@ export default function DatalogsOverview() {
   const handleChange = (event: SyntheticEvent, value: Session | null) => {
     if (value !== null) {
       setSession(value);
+      sessionStorage.setItem("currentSession", JSON.stringify(value));
     }
   };
 
@@ -38,6 +39,12 @@ export default function DatalogsOverview() {
     startTransition(async () => {
       try {
         setSessions(await GetSessions());
+
+        if (sessionStorage.getItem("currentSession")) {
+          setSession(
+            JSON.parse(sessionStorage.getItem("currentSession") ?? "{}"),
+          );
+        }
       } catch (error: any) {
         setSessions(Array());
         enqueueSnackbar("Failed to retrieve sessions", { variant: "error" });
@@ -57,6 +64,8 @@ export default function DatalogsOverview() {
         }
         sx={{ width: 500, margin: 2 }}
         renderInput={(params) => <TextField {...params} label="Sessions" />}
+        value={session || null}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
       />
       <DatalogTabs session={session}></DatalogTabs>
     </Stack>
