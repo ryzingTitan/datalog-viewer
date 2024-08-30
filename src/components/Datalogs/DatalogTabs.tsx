@@ -12,7 +12,7 @@ import TemperatureGraph from "@/components/Datalogs/Graphs/TemperatureGraph";
 import GetDatalogs from "@/actions/datalogs/GetDatalogs";
 import { enqueueSnackbar } from "notistack";
 import Datalog from "@/interfaces/Datalog";
-import BoostPressureGraph from "@/components/Datalogs/Graphs/BoostPressureGraph";
+import BoostPressureGraphs from "@/components/Datalogs/Graphs/BoostPressureGraphs";
 import CustomTabPanel from "@/components/Datalogs/CustomTabPanel";
 import ThrottleGraph from "@/components/Datalogs/Graphs/ThrottleGraph";
 import SpeedGraphs from "@/components/Datalogs/Graphs/SpeedGraphs";
@@ -70,7 +70,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
         <TemperatureGraph isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <BoostPressureGraph isPending={isPending} datalogs={datalogs} />
+        <BoostPressureGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
         <ThrottleGraph isPending={isPending} datalogs={datalogs} />

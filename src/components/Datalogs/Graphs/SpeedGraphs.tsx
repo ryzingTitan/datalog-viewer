@@ -18,7 +18,6 @@ export default function SpeedGraphs(
     let count = 0;
 
     speedDataPoints.forEach((speedDataPoint) => {
-      console.log(speedDataPoint);
       if (speedDataPoint >= low && speedDataPoint <= high) {
         count += 1;
       }
