@@ -26,7 +26,9 @@ function a11yProps(index: number) {
 }
 
 export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
-  const [value, setValue] = useState(0);
+  const [tab, setTab] = useState(
+    parseInt(sessionStorage.getItem("currentTab") ?? "0"),
+  );
   const [datalogs, setDatalogs] = useState(Array<Datalog>);
   const [isPending, startTransition] = useTransition();
 
@@ -43,8 +45,9 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
     });
   }, [datalogProps.session]);
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleChange = (event: SyntheticEvent, newTab: number) => {
+    setTab(newTab);
+    sessionStorage.setItem("currentTab", JSON.stringify(newTab));
   };
 
   const isDisabled = (): boolean => {
@@ -54,7 +57,7 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange} centered>
+        <Tabs value={tab} onChange={handleChange} centered>
           <Tab label="Summary" {...a11yProps(0)} />
           <Tab label="Temperature" {...a11yProps(1)} disabled={isDisabled()} />
           <Tab label="Boost" {...a11yProps(2)} disabled={isDisabled()} />
@@ -63,22 +66,22 @@ export default function DatalogTabs(datalogProps: DatalogProps): ReactElement {
           <Tab label="Map" {...a11yProps(5)} disabled={isDisabled()} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
+      <CustomTabPanel value={tab} index={0}>
         <Summary isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      <CustomTabPanel value={tab} index={1}>
         <TemperatureGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={tab} index={2}>
         <BoostPressureGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
+      <CustomTabPanel value={tab} index={3}>
         <ThrottleGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
+      <CustomTabPanel value={tab} index={4}>
         <SpeedGraphs isPending={isPending} datalogs={datalogs} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={5}>
+      <CustomTabPanel value={tab} index={5}>
         <TrackMap session={datalogProps.session} datalogs={datalogs} />
       </CustomTabPanel>
     </Box>
